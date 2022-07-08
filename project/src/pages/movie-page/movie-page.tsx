@@ -1,13 +1,13 @@
 import FilmCard from '../../components/film-card';
 import Footer from '../../components/footer';
 
-type MainPageProps = {
+type MoviePageProps = {
   title: string;
   genre: string;
   releaseDate: number;
 }
 
-function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
+function MoviePage({ title, genre, releaseDate }: MoviePageProps): JSX.Element {
   return (
     <body>
       <div className="visually-hidden">
@@ -42,40 +42,36 @@ function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
         </svg>
       </div>
 
-      <section className="film-card" >
-        <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
-        </div>
-
-        <h1 className="visually-hidden">WTW</h1>
-
-        <header className="page-header film-card__head">
-          <div className="logo">
-            <a href="#section" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
+      <section className="film-card film-card--full">
+        <div className="film-card__hero">
+          <div className="film-card__bg">
+            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
           </div>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href="#section" className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+          <h1 className="visually-hidden">WTW</h1>
 
-        <div className="film-card__wrap">
-          <div className="film-card__info">
-            <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <header className="page-header film-card__head">
+            <div className="logo">
+              <a href="main.html" className="logo__link">
+                <span className="logo__letter logo__letter--1">W</span>
+                <span className="logo__letter logo__letter--2">T</span>
+                <span className="logo__letter logo__letter--3">W</span>
+              </a>
             </div>
 
+            <ul className="user-block">
+              <li className="user-block__item">
+                <div className="user-block__avatar">
+                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                </div>
+              </li>
+              <li className="user-block__item">
+                <a href="#section" className="user-block__link">Sign out</a>
+              </li>
+            </ul>
+          </header>
+
+          <div className="film-card__wrap">
             <div className="film-card__desc">
               <h2 className="film-card__title">{title}</h2>
               <p className="film-card__meta">
@@ -97,6 +93,49 @@ function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
+                <a href="add-review.html" className="btn film-card__button">Add review</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="film-card__wrap film-card__translate-top">
+          <div className="film-card__info">
+            <div className="film-card__poster film-card__poster--big">
+              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+            </div>
+
+            <div className="film-card__desc">
+              <nav className="film-nav film-card__nav">
+                <ul className="film-nav__list">
+                  <li className="film-nav__item film-nav__item--active">
+                    <a href="#section" className="film-nav__link">Overview</a>
+                  </li>
+                  <li className="film-nav__item">
+                    <a href="#section" className="film-nav__link">Details</a>
+                  </li>
+                  <li className="film-nav__item">
+                    <a href="#section" className="film-nav__link">Reviews</a>
+                  </li>
+                </ul>
+              </nav>
+
+              <div className="film-rating">
+                <div className="film-rating__score">8,9</div>
+                <p className="film-rating__meta">
+                  <span className="film-rating__level">Very good</span>
+                  <span className="film-rating__count">240 ratings</span>
+                </p>
+              </div>
+
+              <div className="film-card__text">
+                <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H.(Ralph Fiennes).Zero, a junior lobby boy, becomes Gustave`&apos;`s friend and protege.</p>
+
+                <p>Gustave prides himself on providing first-class service to the hotel`&apos;`s guests, including satisfying the sexual needs of the many elderly women who stay there.When one of Gustave`&apos;`s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
+
+                <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
+
+                <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
               </div>
             </div>
           </div>
@@ -104,67 +143,14 @@ function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
       </section>
 
       <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#section" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+        <section className="catalog catalog--like-this">
+          <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
             <FilmCard />
             <FilmCard />
             <FilmCard />
             <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-          </div>
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
           </div>
         </section>
 
@@ -174,4 +160,4 @@ function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
   );
 }
 
-export default MainPage;
+export default MoviePage;

@@ -2,12 +2,12 @@ import MainPage from '../../pages/main-page/main-page';
 
 type MainPageProps = {
   title: string;
-  genres: string;
+  genre: string;
   releaseDate: number;
 }
 
-function App({ title, genres, releaseDate }: MainPageProps): JSX.Element {
-  return (<MainPage title={title} genres={genres} releaseDate={releaseDate} />);
+function App({ title, genre, releaseDate }: MainPageProps): JSX.Element {
+  return (<MainPage title={title} genre={genre} releaseDate={releaseDate} />);
 }
 
 export default App;

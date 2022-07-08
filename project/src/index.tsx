@@ -16,7 +16,7 @@ root.render(
   <React.StrictMode>
     <App
       title={Setting.TITLE}
-      genres={Setting.GENRE}
+      genre={Setting.GENRE}
       releaseDate={Setting.RELEASE_DATE}
     />
   </React.StrictMode>,
