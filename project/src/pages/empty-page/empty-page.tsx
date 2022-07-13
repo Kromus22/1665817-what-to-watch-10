@@ -1,7 +1,7 @@
-import Footer from '../../components/footer/footer';
+import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 
-function LoginMessagePage(): JSX.Element {
+function EmptyPage(): JSX.Element {
   return (
     <body>
       <div className="visually-hidden">
@@ -33,38 +33,29 @@ function LoginMessagePage(): JSX.Element {
         </svg>
       </div>
 
-      <div className="user-page">
-        <header className="page-header user-page__head">
-          <Logo />
-
-          <h1 className="page-title user-page__title">Sign in</h1>
-        </header>
-
-        <div className="sign-in user-page__content">
-          <form action="#" className="sign-in__form">
-            <div className="sign-in__message">
-              <p>We can’t recognize this email <br /> and password combination. Please try again.</p>
-            </div>
-            <div className="sign-in__fields">
-              <div className="sign-in__field">
-                <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
-                <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
-              </div>
-              <div className="sign-in__field">
-                <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
-                <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
-              </div>
-            </div>
-            <div className="sign-in__submit">
-              <button className="sign-in__btn" type="submit">Sign in</button>
-            </div>
-          </form>
+      <section className="film-card">
+        <div className="film-card__bg">
+          <img src="img/bg-header.jpg" alt="Some background" />
         </div>
 
-        <Footer />
+        <h1 className="visually-hidden">WTW</h1>
+
+        <header className="page-header">
+          <Logo />
+
+          <div className="user-block">
+            <a href="sign-in.html" className="user-block__link">Sign in</a>
+          </div>
+        </header>
+
+      </section>
+      <div>
+        <p>404 Not Found</p>
+
+        <Link to="/">Go to main page</Link>
       </div>
     </body>
   );
 }
 
-export default LoginMessagePage;
+export default EmptyPage;
