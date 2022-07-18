@@ -9,9 +9,6 @@ import EmptyPage from '../../pages/empty-page/empty-page';
 import PrivateRoute from '../private-route/private-route';
 import AddReviewPage from '../../pages/add-review-page/add-review-page';
 import { Film } from '../../types/films';
-import Overview from '../overview/overview';
-import Details from '../details/details';
-import Reviews from '../reviews/reviews';
 
 type MainPageProps = {
   title: string;
@@ -27,9 +24,7 @@ function App({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
         <Route path={AppRoute.Main}
           element={<MainPage title={title} genre={genre} releaseDate={releaseDate} films={films} />}
         />
-        <Route path={AppRoute.SignIn}
-          element={<LoginPage />}
-        />
+        <Route path={AppRoute.SignIn} element={<LoginPage />} />
         <Route path={AppRoute.MyList}
           element={
             <PrivateRoute
@@ -40,10 +35,6 @@ function App({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
           }
         />
         <Route path={AppRoute.Film} element={<MoviePage films={films} />} />
-        <Route path={AppRoute.Overview} element={<Overview films={films} />} />
-        <Route path={AppRoute.Details} element={<Details films={films} />} />
-        <Route path={AppRoute.Reviews} element={<Reviews films={films} />} />
-
         <Route path={AppRoute.AddReview}
           element={
             <PrivateRoute
@@ -54,9 +45,7 @@ function App({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
           }
         />
         <Route path={AppRoute.Player} element={<PlayerPage films={films} />} />
-        <Route path="*"
-          element={<EmptyPage />}
-        />
+        <Route path="*" element={<EmptyPage />} />
       </Routes>
     </BrowserRouter>
   );

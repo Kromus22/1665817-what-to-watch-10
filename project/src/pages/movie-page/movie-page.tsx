@@ -2,8 +2,9 @@ import FilmCard from '../../components/film-card/film-card';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import { Film } from '../../types/films';
-import { useParams, useNavigate, Link, Outlet } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
+import Overview from '../../components/overview/overview';
 
 type MoviePageProps = {
   films: Film[];
@@ -123,7 +124,7 @@ function MoviePage({ films }: MoviePageProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <Outlet />
+              <Overview films={films} />
             </div>
           </div>
         </div>
