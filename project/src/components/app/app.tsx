@@ -39,13 +39,11 @@ function App({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film}
-          element={<MoviePage films={films} />}
-        >
-          <Route path={AppRoute.Film} element={<Overview films={films} />} />
-          <Route path=":id/details" element={<Details films={films} />} />
-          <Route path=":id/reviews" element={<Reviews films={films} />} />
-        </Route>
+        <Route path={AppRoute.Film} element={<MoviePage films={films} />} />
+        <Route path={AppRoute.Overview} element={<Overview films={films} />} />
+        <Route path={AppRoute.Details} element={<Details films={films} />} />
+        <Route path={AppRoute.Reviews} element={<Reviews films={films} />} />
+
         <Route path={AppRoute.AddReview}
           element={
             <PrivateRoute
@@ -55,11 +53,7 @@ function App({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Player}
-          element={<PlayerPage films={films} />}
-        >
-          <Route path={AppRoute.Player} element={<PlayerPage films={films} />} />
-        </Route>
+        <Route path={AppRoute.Player} element={<PlayerPage films={films} />} />
         <Route path="*"
           element={<EmptyPage />}
         />
