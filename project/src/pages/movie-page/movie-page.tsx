@@ -3,6 +3,7 @@ import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import { Film } from '../../types/films';
 import { useParams, useNavigate, Link, Outlet } from 'react-router-dom';
+import { useState } from 'react';
 
 type MoviePageProps = {
   films: Film[];
@@ -21,6 +22,13 @@ function MoviePage({ films }: MoviePageProps): JSX.Element {
   const onMyListButtonClickHandler = () => {
     const path = '/mylist';
     navigate(path);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [count, setActiveCard] = useState(0);
+
+  const setActive = (id: number) => {
+    setActiveCard(id);
   };
 
   return (
@@ -126,22 +134,10 @@ function MoviePage({ films }: MoviePageProps): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmCard id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={function (id: number): void {
-              throw new Error('Function not implemented.');
-            }}
-            />
-            <FilmCard id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={function (id: number): void {
-              throw new Error('Function not implemented.');
-            }}
-            />
-            <FilmCard id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={function (id: number): void {
-              throw new Error('Function not implemented.');
-            }}
-            />
-            <FilmCard id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={function (id: number): void {
-              throw new Error('Function not implemented.');
-            }}
-            />
+            <FilmCard id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={setActive} />
+            <FilmCard id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={setActive} />
+            <FilmCard id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={setActive} />
+            <FilmCard id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={setActive} />
           </div>
         </section>
 
