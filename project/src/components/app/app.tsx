@@ -4,23 +4,28 @@ import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MyList from '../../pages/my-list-page/my-list-page';
 import MoviePage from '../../pages/movie-page/movie-page';
-import MovieReviewsPage from '../../pages/movie-reviews-page/movie-reviews-page';
 import PlayerPage from '../../pages/player-page/player-page';
 import EmptyPage from '../../pages/empty-page/empty-page';
 import PrivateRoute from '../private-route/private-route';
+import AddReviewPage from '../../pages/add-review-page/add-review-page';
+import { Film } from '../../types/films';
+import Overview from '../overview/overview';
+import Details from '../details/details';
+import Reviews from '../reviews/reviews';
 
 type MainPageProps = {
   title: string;
   genre: string;
   releaseDate: number;
+  films: Film[];
 }
 
-function App({ title, genre, releaseDate }: MainPageProps): JSX.Element {
+function App({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main}
-          element={<MainPage title={title} genre={genre} releaseDate={releaseDate} />}
+          element={<MainPage title={title} genre={genre} releaseDate={releaseDate} films={films} />}
         />
         <Route path={AppRoute.SignIn}
           element={<LoginPage />}
@@ -28,21 +33,32 @@ function App({ title, genre, releaseDate }: MainPageProps): JSX.Element {
         <Route path={AppRoute.MyList}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
-              <MyList />
+              <MyList films={films} />
             </PrivateRoute>
           }
         />
         <Route path={AppRoute.Film}
-          element={<MoviePage title={title} genre={genre} releaseDate={releaseDate} />}
-        />
+          element={<MoviePage films={films} />}
+        >
+          <Route path=":id" element={<Overview films={films} />} />
+          <Route path=":id/details" element={<Details films={films} />} />
+          <Route path=":id/reviews" element={<Reviews films={films} />} />
+        </Route>
         <Route path={AppRoute.AddReview}
-          element={<MovieReviewsPage title={title} genre={genre} releaseDate={releaseDate} />}
+          element=
+          {<PrivateRoute
+            authorizationStatus={AuthorizationStatus.Auth}
+          >
+            <AddReviewPage films={films} />
+          </PrivateRoute>}
         />
         <Route path={AppRoute.Player}
-          element={<PlayerPage />}
-        />
+          element={<PlayerPage films={films} />}
+        >
+          <Route path=":id" element={<PlayerPage films={films} />} />
+        </Route>
         <Route path="*"
           element={<EmptyPage />}
         />
