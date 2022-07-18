@@ -47,12 +47,13 @@ function App({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
           <Route path=":id/reviews" element={<Reviews films={films} />} />
         </Route>
         <Route path={AppRoute.AddReview}
-          element=
-          {<PrivateRoute
-            authorizationStatus={AuthorizationStatus.Auth}
-          >
-            <AddReviewPage films={films} />
-          </PrivateRoute>}
+          element={
+            <PrivateRoute
+              authorizationStatus={AuthorizationStatus.Auth}
+            >
+              <AddReviewPage films={films} />
+            </PrivateRoute>
+          }
         />
         <Route path={AppRoute.Player}
           element={<PlayerPage films={films} />}
