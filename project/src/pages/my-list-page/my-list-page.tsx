@@ -1,8 +1,26 @@
 import FilmCard from '../../components/film-card/film-card';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
+import { useState } from 'react';
+import { Film } from '../../types/films';
 
-function MyListPage(): JSX.Element {
+type MyListPageProps = {
+  films: Film[];
+}
+
+function MyListPage({ films }: MyListPageProps): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [count, setActiveCard] = useState(0);
+
+  const setActive = (id: number) => {
+    setActiveCard(id);
+  };
+
+  const filmsList =
+    films && films.map((film) => (
+      <FilmCard key={film.id} id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={setActive} />
+    ));
+
   return (
     <body>
       <div className="visually-hidden">
@@ -38,7 +56,7 @@ function MyListPage(): JSX.Element {
         <header className="page-header user-page__head">
           <Logo />
 
-          <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>
+          <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{films.length}</span></h1>
           <ul className="user-block">
             <li className="user-block__item">
               <div className="user-block__avatar">
@@ -55,15 +73,7 @@ function MyListPage(): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <div className="catalog__films-list">
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
+            {filmsList}
           </div>
         </section>
 

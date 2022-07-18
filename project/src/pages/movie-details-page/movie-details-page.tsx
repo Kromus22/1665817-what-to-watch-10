@@ -1,4 +1,4 @@
-import FilmCard from '../../components/film-card/film-card';
+
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 
@@ -165,10 +165,7 @@ function MovieDetailsPage({ title, genre, releaseDate }: MovieDetailsPageProps):
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
+
           </div>
         </section>
 

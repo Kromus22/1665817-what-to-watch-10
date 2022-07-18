@@ -4,48 +4,48 @@ import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MyList from '../../pages/my-list-page/my-list-page';
 import MoviePage from '../../pages/movie-page/movie-page';
-import MovieReviewsPage from '../../pages/movie-reviews-page/movie-reviews-page';
 import PlayerPage from '../../pages/player-page/player-page';
 import EmptyPage from '../../pages/empty-page/empty-page';
 import PrivateRoute from '../private-route/private-route';
+import AddReviewPage from '../../pages/add-review-page/add-review-page';
+import { Film } from '../../types/films';
 
 type MainPageProps = {
   title: string;
   genre: string;
   releaseDate: number;
+  films: Film[];
 }
 
-function App({ title, genre, releaseDate }: MainPageProps): JSX.Element {
+function App({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main}
-          element={<MainPage title={title} genre={genre} releaseDate={releaseDate} />}
+          element={<MainPage title={title} genre={genre} releaseDate={releaseDate} films={films} />}
         />
-        <Route path={AppRoute.SignIn}
-          element={<LoginPage />}
-        />
+        <Route path={AppRoute.SignIn} element={<LoginPage />} />
         <Route path={AppRoute.MyList}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
-              <MyList />
+              <MyList films={films} />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film}
-          element={<MoviePage title={title} genre={genre} releaseDate={releaseDate} />}
-        />
+        <Route path={AppRoute.Film} element={<MoviePage films={films} />} />
         <Route path={AppRoute.AddReview}
-          element={<MovieReviewsPage title={title} genre={genre} releaseDate={releaseDate} />}
+          element={
+            <PrivateRoute
+              authorizationStatus={AuthorizationStatus.Auth}
+            >
+              <AddReviewPage films={films} />
+            </PrivateRoute>
+          }
         />
-        <Route path={AppRoute.Player}
-          element={<PlayerPage />}
-        />
-        <Route path="*"
-          element={<EmptyPage />}
-        />
+        <Route path={AppRoute.Player} element={<PlayerPage films={films} />} />
+        <Route path="*" element={<EmptyPage />} />
       </Routes>
     </BrowserRouter>
   );
