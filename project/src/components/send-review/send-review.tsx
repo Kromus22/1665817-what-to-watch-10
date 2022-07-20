@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 
+const DEFALUT_RATING_VALUE = 0;
+
 function SendingReviewsForm(): JSX.Element {
-  const DEFALUT_RATING_VALUE = 0;
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number>(DEFALUT_RATING_VALUE);
 
