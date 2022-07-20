@@ -1,9 +1,8 @@
-import FilmCard from '../../components/film-card/film-card';
+import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import { Film } from '../../types/films';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useState } from 'react';
 import Overview from '../../components/overview/overview';
 
 type MoviePageProps = {
@@ -23,13 +22,6 @@ function MoviePage({ films }: MoviePageProps): JSX.Element {
   const onMyListButtonClickHandler = () => {
     const path = '/mylist';
     navigate(path);
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [count, setActiveCard] = useState(0);
-
-  const setActive = (id: number) => {
-    setActiveCard(id);
   };
 
   return (
@@ -135,10 +127,7 @@ function MoviePage({ films }: MoviePageProps): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmCard id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={setActive} />
-            <FilmCard id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={setActive} />
-            <FilmCard id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={setActive} />
-            <FilmCard id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={setActive} />
+            <FilmsList films={films} />
           </div>
         </section>
 
