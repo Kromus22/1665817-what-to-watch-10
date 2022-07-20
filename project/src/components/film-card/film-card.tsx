@@ -21,8 +21,7 @@ function FilmCard({ film, activeCard, onMouseEnter, onMouseLeave }: FilmCardProp
       if (activeCard === id) {
         videoRef.current?.play();
       }
-    },
-      PLAY_TIMEOUT);
+    }, PLAY_TIMEOUT);
     if (activeCard !== id) {
       videoRef.current?.pause();
       videoRef.current?.load();
