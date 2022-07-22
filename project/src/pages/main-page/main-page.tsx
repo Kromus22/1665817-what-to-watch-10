@@ -1,8 +1,10 @@
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import { Film } from '../../types/films';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import FilmsList from '../../components/films-list/films-list';
+import GenreTabs from '../../components/genre-tabs/genre-tabs';
+import { useParams } from 'react-router-dom';
 
 type MainPageProps = {
   title: string;
@@ -13,6 +15,12 @@ type MainPageProps = {
 
 function MainPage({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
   const navigate = useNavigate();
+
+  const { genreName } = useParams();
+
+  const genreList = genreName
+    ? films.filter((item) => item.genre.toLowerCase() === genreName)
+    : films;
 
   const myListButtonClickHandler = () => {
     const path = '/mylist';
@@ -117,41 +125,10 @@ function MainPage({ title, genre, releaseDate, films }: MainPageProps): JSX.Elem
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <Link to="#" className="catalog__genres-link">All genres</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Comedies</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Crime</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Documentary</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Dramas</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Horror</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Kids & Family</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Romance</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Sci-Fi</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="#" className="catalog__genres-link">Thrillers</Link>
-            </li>
-          </ul>
+          <GenreTabs genreName={genreName} />
 
           <div className="catalog__films-list">
-            <FilmsList films={films} />
+            <FilmsList films={genreList} />
           </div>
 
           <div className="catalog__more">

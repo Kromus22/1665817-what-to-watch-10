@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { FILMS } from './mocks/films';
+import { SimilarFilms } from './mocks/similar-films';
 
 const Setting = {
   TITLE: 'The Grand Budapest Hotel',
@@ -20,6 +21,7 @@ root.render(
       genre={Setting.GENRE}
       releaseDate={Setting.RELEASE_DATE}
       films={FILMS}
+      similarFilms={SimilarFilms}
     />
   </React.StrictMode>,
 );

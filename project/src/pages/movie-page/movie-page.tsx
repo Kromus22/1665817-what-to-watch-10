@@ -11,13 +11,13 @@ import { getTab } from '../../utils/utils';
 import Tabs from '../../components/tabs/tabs';
 
 type MoviePageProps = {
-  films: Film[];
+  similarFilms: Film[];
 }
 
-function MoviePage({ films }: MoviePageProps): JSX.Element {
+function MoviePage({ similarFilms }: MoviePageProps): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
-  const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
+  const film = similarFilms.find((filmA) => String(filmA.id) === params.id) as Film;
 
   const onPlayButtonClickHandler = () => {
     const path = `/player/${film.id}`;
@@ -108,7 +108,7 @@ function MoviePage({ films }: MoviePageProps): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{films.length}</span>
+                  <span className="film-card__count">{similarFilms.length}</span>
                 </button>
                 <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
               </div>
@@ -127,12 +127,12 @@ function MoviePage({ films }: MoviePageProps): JSX.Element {
 
               {
                 tab === Tab.Overview &&
-                <Overview films={films} />
+                <Overview films={similarFilms} />
               }
 
               {
                 tab === Tab.Details &&
-                <Details films={films} />
+                <Details films={similarFilms} />
               }
 
               {
@@ -149,7 +149,7 @@ function MoviePage({ films }: MoviePageProps): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList films={films} />
+            <FilmsList films={similarFilms} />
           </div>
         </section>
 
