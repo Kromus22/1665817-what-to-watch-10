@@ -15,13 +15,17 @@ type MainPageProps = {
   genre: string;
   releaseDate: number;
   films: Film[];
+  similarFilms: Film[];
 }
 
-function App({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
+function App({ title, genre, releaseDate, films, similarFilms }: MainPageProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main}
+          element={<MainPage title={title} genre={genre} releaseDate={releaseDate} films={films} />}
+        />
+        <Route path={AppRoute.Genre.path}
           element={<MainPage title={title} genre={genre} releaseDate={releaseDate} films={films} />}
         />
         <Route path={AppRoute.SignIn} element={<LoginPage />} />
@@ -34,7 +38,7 @@ function App({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film} element={<MoviePage films={films} />} />
+        <Route path={AppRoute.Film} element={<MoviePage similarFilms={similarFilms} />} />
         <Route path={AppRoute.AddReview}
           element={
             <PrivateRoute

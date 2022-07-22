@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Film } from '../../types/films';
 import { useRef, useEffect } from 'react';
+import classNames from 'classnames';
 
 const PLAY_TIMEOUT = 1000;
 
@@ -33,8 +34,13 @@ function FilmCard({ film, activeCard, onMouseEnter, onMouseLeave }: FilmCardProp
   }, [activeCard, id]);
 
   return (
-    <article className="small-film-card catalog__films-card" onMouseEnter={() => onMouseEnter(id)}
-      onMouseLeave={onMouseLeave}
+    <article className={
+      classNames(
+        'small-film-card',
+        'catalog__films-card',
+        { 'active': activeCard === id }
+      )
+    } onMouseEnter={() => onMouseEnter(id)} onMouseLeave={onMouseLeave}
     >
       <div className="small-film-card__image">
         <video
