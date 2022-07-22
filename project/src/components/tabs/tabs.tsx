@@ -25,7 +25,7 @@ function Tabs(): JSX.Element {
         }
         )}
         >
-          <Link to={`?tab=${Tab.Details}`} className="film-nav__link">Overview</Link>
+          <Link to={`?tab=${Tab.Details}`} className="film-nav__link">Details</Link>
         </li>
         <li className={classNames('film-nav__item', {
           'film-nav__item--active':
@@ -33,7 +33,7 @@ function Tabs(): JSX.Element {
         }
         )}
         >
-          <Link to={`?tab=${Tab.Reviews}`} className="film-nav__link">Overview</Link>
+          <Link to={`?tab=${Tab.Reviews}`} className="film-nav__link">Reviews</Link>
         </li>
       </ul>
     </nav>

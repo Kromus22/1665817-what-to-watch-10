@@ -137,7 +137,7 @@ function MoviePage({ films }: MoviePageProps): JSX.Element {
 
               {
                 tab === Tab.Reviews &&
-                <Reviews films={films} />
+                <Reviews />
               }
             </div>
           </div>
