@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
-import { getGenres, getGenreUrl } from '../../utils/utils';
+import { Link, generatePath } from 'react-router-dom';
+import { getGenres } from '../../utils/utils';
 import { FILMS } from '../../mocks/films';
 import { AppRoute } from '../../const';
 
@@ -38,7 +38,7 @@ function GenreTabs({ genreName }: GenreTabsProps): JSX.Element {
             )}
           >
             <Link
-              to={getGenreUrl(genre)}
+              to={generatePath('/genre/:id', { id: genre.toLowerCase() })}
               className="catalog__genres-link"
             >
               {genre}
