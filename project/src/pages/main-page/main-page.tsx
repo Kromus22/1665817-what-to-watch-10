@@ -1,26 +1,30 @@
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import { Film } from '../../types/films';
 import { useNavigate } from 'react-router-dom';
 import FilmsList from '../../components/films-list/films-list';
 import GenreTabs from '../../components/genre-tabs/genre-tabs';
-import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/useDispatch';
+import { fetchFilms } from '../../store/actions';
+import { selectFilterFilms } from '../../store/select';
+import { useEffect } from 'react';
+import { selectFilms } from '../../store/select';
 
 type MainPageProps = {
   title: string;
   genre: string;
   releaseDate: number;
-  films: Film[];
 }
 
-function MainPage({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
+function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const genreList = useAppSelector(selectFilterFilms);
+  const films = useAppSelector(selectFilms);
+  const favoriteFilms = films.filter((item) => item.isFavorite);
 
-  const { genreName } = useParams();
-
-  const genreList = genreName
-    ? films.filter((item) => item.genre.toLowerCase() === genreName)
-    : films;
+  useEffect(() => {
+    dispatch(fetchFilms());
+  }, [dispatch]);
 
   const myListButtonClickHandler = () => {
     const path = '/mylist';
@@ -113,7 +117,7 @@ function MainPage({ title, genre, releaseDate, films }: MainPageProps): JSX.Elem
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{films.length}</span>
+                  <span className="film-card__count">{favoriteFilms.length}</span>
                 </button>
               </div>
             </div>
@@ -125,7 +129,7 @@ function MainPage({ title, genre, releaseDate, films }: MainPageProps): JSX.Elem
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreTabs genreName={genreName} />
+          <GenreTabs />
 
           <div className="catalog__films-list">
             <FilmsList films={genreList} />

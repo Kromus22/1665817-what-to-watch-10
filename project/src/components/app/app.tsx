@@ -8,25 +8,19 @@ import PlayerPage from '../../pages/player-page/player-page';
 import EmptyPage from '../../pages/empty-page/empty-page';
 import PrivateRoute from '../private-route/private-route';
 import AddReviewPage from '../../pages/add-review-page/add-review-page';
-import { Film } from '../../types/films';
 
 type MainPageProps = {
   title: string;
   genre: string;
   releaseDate: number;
-  films: Film[];
-  similarFilms: Film[];
 }
 
-function App({ title, genre, releaseDate, films, similarFilms }: MainPageProps): JSX.Element {
+function App({ title, genre, releaseDate }: MainPageProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main}
-          element={<MainPage title={title} genre={genre} releaseDate={releaseDate} films={films} />}
-        />
-        <Route path={AppRoute.Genre.path}
-          element={<MainPage title={title} genre={genre} releaseDate={releaseDate} films={films} />}
+          element={<MainPage title={title} genre={genre} releaseDate={releaseDate} />}
         />
         <Route path={AppRoute.SignIn} element={<LoginPage />} />
         <Route path={AppRoute.MyList}
@@ -34,21 +28,21 @@ function App({ title, genre, releaseDate, films, similarFilms }: MainPageProps):
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <MyList films={films} />
+              <MyList />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film} element={<MoviePage similarFilms={similarFilms} />} />
+        <Route path={AppRoute.Film} element={<MoviePage />} />
         <Route path={AppRoute.AddReview}
           element={
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <AddReviewPage films={films} />
+              <AddReviewPage />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Player} element={<PlayerPage films={films} />} />
+        <Route path={AppRoute.Player} element={<PlayerPage />} />
         <Route path="*" element={<EmptyPage />} />
       </Routes>
     </BrowserRouter>

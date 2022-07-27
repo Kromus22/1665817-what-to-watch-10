@@ -1,15 +1,16 @@
 import Logo from '../../components/logo/logo';
-import { Link, useParams } from 'react-router-dom';
-import { Film } from '../../types/films';
+import { Link, useParams, Navigate } from 'react-router-dom';
 import SendingReviewsForm from '../../components/send-review/send-review';
+import { getFilm } from '../../utils/utils';
 
-type AddReviewPageProps = {
-  films: Film[]
-}
 
-function AddReviewPage({ films }: AddReviewPageProps): JSX.Element {
+function AddReviewPage(): JSX.Element {
   const params = useParams();
-  const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
+  const film = getFilm(params.id as string);
+
+  if (!film) {
+    return <Navigate to={'*'} />;
+  }
 
   return (
     <body>

@@ -1,23 +1,35 @@
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import { Film } from '../../types/films';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link, Navigate } from 'react-router-dom';
 import Overview from '../../components/overview/overview';
 import Details from '../../components/details/details';
 import Reviews from '../../components/reviews/reviews';
 import { Tab } from '../../const';
-import { getTab } from '../../utils/utils';
+import { getTab, getFilm } from '../../utils/utils';
 import Tabs from '../../components/tabs/tabs';
+import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
+import { selectFilms } from '../../store/select';
+import { useEffect } from 'react';
+import { fetchFilms } from '../../store/actions';
 
-type MoviePageProps = {
-  similarFilms: Film[];
-}
+const MAX_SIMILAR_FILMS_COUNT = 4;
 
-function MoviePage({ similarFilms }: MoviePageProps): JSX.Element {
+
+function MoviePage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const params = useParams();
-  const film = similarFilms.find((filmA) => String(filmA.id) === params.id) as Film;
+  const similarFilms = useAppSelector(selectFilms).slice(0, MAX_SIMILAR_FILMS_COUNT);
+  const film = getFilm(params.id as string);
+
+  useEffect(() => {
+    dispatch(fetchFilms());
+  }, [dispatch]);
+
+  if (!film) {
+    return <Navigate to={'*'} />;
+  }
 
   const onPlayButtonClickHandler = () => {
     const path = `/player/${film.id}`;

@@ -1,17 +1,22 @@
 import classNames from 'classnames';
-import { Link, generatePath } from 'react-router-dom';
-import { getGenres } from '../../utils/utils';
-import { FILMS } from '../../mocks/films';
+import { Link, generatePath, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks/useDispatch';
+import { useEffect } from 'react';
+import { changeGenre } from '../../store/actions';
+import { selectFilmGenres } from '../../store/select';
 
 const MAX_GENRES_COUNT = 9;
 
-type GenreTabsProps = {
-  genreName?: string;
-}
+function GenreTabs(): JSX.Element {
+  const genres = useAppSelector(selectFilmGenres);
+  const { genreName } = useParams();
+  const dispatch = useAppDispatch();
 
-function GenreTabs({ genreName }: GenreTabsProps): JSX.Element {
-  const genres = getGenres(FILMS);
+  useEffect(() => {
+    dispatch(changeGenre(genreName));
+  }, [genreName, dispatch]);
+
 
   return (
     <ul className="catalog__genres-list">
