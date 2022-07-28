@@ -6,24 +6,24 @@ import GenreTabs from '../../components/genre-tabs/genre-tabs';
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatch';
 import { fetchFilms } from '../../store/actions';
 import { useEffect } from 'react';
-import { selectFilms } from '../../store/select';
+import { selectFilterFilms } from '../../store/select';
 import { FILMS } from '../../mocks/films';
+import { Film } from '../../types/films';
 
 type MainPageProps = {
-  title: string;
-  genre: string;
-  releaseDate: number;
+  film: Film;
 }
 
-function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
+function MainPage({ film }: MainPageProps): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const films = useAppSelector(selectFilms);
-  const favoriteFilms = films.filter((item) => item.isFavorite);
+  const filteredFilms = useAppSelector(selectFilterFilms);
 
   useEffect(() => {
     dispatch(fetchFilms(FILMS));
   }, [dispatch]);
+
+  const getFilmsList = (films: Film[]) => films;
 
   const myListButtonClickHandler = () => {
     const path = '/mylist';
@@ -98,10 +98,10 @@ function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">{film.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{releaseDate}</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.releaseDate}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -116,7 +116,7 @@ function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{favoriteFilms.length}</span>
+                  <span className="film-card__count">{filteredFilms.length}</span>
                 </button>
               </div>
             </div>
@@ -131,7 +131,7 @@ function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
           <GenreTabs />
 
           <div className="catalog__films-list">
-            <FilmsList />
+            <FilmsList films={getFilmsList(filteredFilms)} />
           </div>
 
           <div className="catalog__more">
