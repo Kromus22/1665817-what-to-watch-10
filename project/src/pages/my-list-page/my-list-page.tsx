@@ -61,7 +61,7 @@ function MyListPage(): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <div className="catalog__films-list">
-            <FilmsList films={favoriteFilms} />
+            <FilmsList />
           </div>
         </section>
 

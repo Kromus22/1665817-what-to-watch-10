@@ -12,6 +12,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
 import { selectFilms } from '../../store/select';
 import { useEffect } from 'react';
 import { fetchFilms } from '../../store/actions';
+import { FILMS } from '../../mocks/films';
 
 const MAX_SIMILAR_FILMS_COUNT = 4;
 
@@ -24,7 +25,7 @@ function MoviePage(): JSX.Element {
   const film = getFilm(params.id as string);
 
   useEffect(() => {
-    dispatch(fetchFilms());
+    dispatch(fetchFilms(FILMS));
   }, [dispatch]);
 
   if (!film) {
@@ -161,7 +162,7 @@ function MoviePage(): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList films={similarFilms} />
+            <FilmsList />
           </div>
         </section>
 

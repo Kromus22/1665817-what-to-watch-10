@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { Film } from '../types/films';
 import { fetchFilms, changeGenre } from './actions';
+import { DEFAULT_GENRE } from '../const';
 
-export const DEFAULT_GENRE = 'All genres';
 
 type FilmsStateType = {
   genre: string;

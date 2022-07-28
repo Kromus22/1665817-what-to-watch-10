@@ -5,9 +5,9 @@ import FilmsList from '../../components/films-list/films-list';
 import GenreTabs from '../../components/genre-tabs/genre-tabs';
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatch';
 import { fetchFilms } from '../../store/actions';
-import { selectFilterFilms } from '../../store/select';
 import { useEffect } from 'react';
 import { selectFilms } from '../../store/select';
+import { FILMS } from '../../mocks/films';
 
 type MainPageProps = {
   title: string;
@@ -18,12 +18,11 @@ type MainPageProps = {
 function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const genreList = useAppSelector(selectFilterFilms);
   const films = useAppSelector(selectFilms);
   const favoriteFilms = films.filter((item) => item.isFavorite);
 
   useEffect(() => {
-    dispatch(fetchFilms());
+    dispatch(fetchFilms(FILMS));
   }, [dispatch]);
 
   const myListButtonClickHandler = () => {
@@ -132,7 +131,7 @@ function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
           <GenreTabs />
 
           <div className="catalog__films-list">
-            <FilmsList films={genreList} />
+            <FilmsList />
           </div>
 
           <div className="catalog__more">

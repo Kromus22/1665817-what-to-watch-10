@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { Film } from '../../types/films';
 import FilmCard from '../film-card/film-card';
+import { useAppSelector } from '../../hooks/useDispatch';
 
-type FilmListProps = {
-  films: Film[];
-}
 
-function FilmsList({ films }: FilmListProps): JSX.Element {
+function FilmsList(): JSX.Element {
   const [activeCard, setActiveCard] = useState<number | null>(null);
+
+  const films = useAppSelector((state) => state.films);
 
   const handleSetActive = (id: number) =>
     setActiveCard(id);

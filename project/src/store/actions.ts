@@ -1,13 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { FILMS } from '../mocks/films';
-import { DEFAULT_GENRE } from './reducer';
+import { Film } from '../types/films';
 
-export const changeGenre = createAction(
-  'films/changeGenre',
-  (name = DEFAULT_GENRE) => ({ payload: name })
-);
+export const changeGenre = createAction<string>('films/changeGenre');
 
-export const fetchFilms = createAction(
-  'films/fetchFilms',
-  () => ({ payload: FILMS })
-);
+export const fetchFilms = createAction<Film[]>('films/fetchFilms');
