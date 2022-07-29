@@ -6,27 +6,20 @@ import Overview from '../../components/overview/overview';
 import Details from '../../components/details/details';
 import Reviews from '../../components/reviews/reviews';
 import { Tab } from '../../const';
-import { getTab, getFilm } from '../../utils/utils';
+import { getTab } from '../../utils/utils';
 import Tabs from '../../components/tabs/tabs';
-import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
-import { selectFilms } from '../../store/select';
-import { useEffect } from 'react';
-import { fetchFilms } from '../../store/actions';
-import { FILMS } from '../../mocks/films';
+import { useAppSelector } from '../../hooks/useDispatch';
 
 const MAX_SIMILAR_FILMS_COUNT = 4;
 
 
 function MoviePage(): JSX.Element {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const params = useParams();
-  const similarFilms = useAppSelector(selectFilms).slice(0, MAX_SIMILAR_FILMS_COUNT);
-  const film = getFilm(params.id as string);
-
-  useEffect(() => {
-    dispatch(fetchFilms(FILMS));
-  }, [dispatch]);
+  const films = useAppSelector((state) => state.films);
+  const film = films.find((filmA) => String(filmA.id) === params.id);
+  const favoriteFilmsLength = useAppSelector((state) => state.favouriteFilms);
+  const similarFilms = films.filter((filmA) => (filmA.genre === film?.genre) && filmA.id !== film?.id).slice(0, MAX_SIMILAR_FILMS_COUNT);
 
   if (!film) {
     return <Navigate to={'*'} />;
@@ -121,7 +114,7 @@ function MoviePage(): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{similarFilms.length}</span>
+                  <span className="film-card__count">{favoriteFilmsLength}</span>
                 </button>
                 <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
               </div>
@@ -140,12 +133,12 @@ function MoviePage(): JSX.Element {
 
               {
                 tab === Tab.Overview &&
-                <Overview films={similarFilms} />
+                <Overview film={film} />
               }
 
               {
                 tab === Tab.Details &&
-                <Details films={similarFilms} />
+                <Details film={film} />
               }
 
               {
@@ -161,9 +154,9 @@ function MoviePage(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__films-list">
-            <FilmsList />
-          </div>
+
+          <FilmsList films={similarFilms} />
+
         </section>
 
         <Footer />

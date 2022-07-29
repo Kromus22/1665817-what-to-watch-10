@@ -1,29 +1,20 @@
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import { useNavigate } from 'react-router-dom';
-import FilmsList from '../../components/films-list/films-list';
+import FilmsListMain from '../../components/films-list-main/films-list-main';
 import GenreTabs from '../../components/genre-tabs/genre-tabs';
-import { useAppDispatch, useAppSelector } from '../../hooks/useDispatch';
-import { fetchFilms } from '../../store/actions';
-import { useEffect } from 'react';
-import { selectFilterFilms } from '../../store/select';
-import { FILMS } from '../../mocks/films';
-import { Film } from '../../types/films';
+import { useAppSelector } from '../../hooks/useDispatch';
 
 type MainPageProps = {
-  film: Film;
+  title: string;
+  genre: string;
+  releaseDate: number;
 }
 
-function MainPage({ film }: MainPageProps): JSX.Element {
+function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const filteredFilms = useAppSelector(selectFilterFilms);
 
-  useEffect(() => {
-    dispatch(fetchFilms(FILMS));
-  }, [dispatch]);
-
-  const getFilmsList = (films: Film[]) => films;
+  const favoriteFilmsLength = useAppSelector((state) => state.favouriteFilms);
 
   const myListButtonClickHandler = () => {
     const path = '/mylist';
@@ -98,10 +89,10 @@ function MainPage({ film }: MainPageProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{film.title}</h2>
+              <h2 className="film-card__title">{title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.releaseDate}</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{releaseDate}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -116,7 +107,7 @@ function MainPage({ film }: MainPageProps): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{filteredFilms.length}</span>
+                  <span className="film-card__count">{favoriteFilmsLength}</span>
                 </button>
               </div>
             </div>
@@ -130,13 +121,9 @@ function MainPage({ film }: MainPageProps): JSX.Element {
 
           <GenreTabs />
 
-          <div className="catalog__films-list">
-            <FilmsList films={getFilmsList(filteredFilms)} />
-          </div>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <FilmsListMain />
+
         </section>
 
         <Footer />

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import './genre-button.css';
 
 type GenreButtonProps = {
   genre: string;

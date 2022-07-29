@@ -1,17 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { Film } from '../types/films';
 import { fetchFilms, changeGenre } from './actions';
 import { DEFAULT_GENRE } from '../const';
+import { FILMS } from '../mocks/films';
 
 
-type FilmsStateType = {
-  genre: string;
-  films: Film[];
-}
-
-const initialState: FilmsStateType = {
+const initialState = {
   genre: DEFAULT_GENRE,
-  films: [],
+  films: FILMS,
+  favouriteFilms: FILMS.filter((film) => film.isFavorite).length,
 };
 
 export const reducer = createReducer(initialState, ((builder) => {

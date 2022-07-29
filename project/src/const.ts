@@ -23,13 +23,13 @@ export const DEFAULT_GENRE = 'All genres';
 
 export const GENRE_TABS = [
   'All genres',
-  'Comedie',
+  'Comedy',
   'Crime',
   'Documentary',
   'Drama',
   'Horror',
-  'Kids & Family',
+  'Action',
   'Romance',
-  'Sci-Fi',
+  'History',
   'Thriller',
 ];

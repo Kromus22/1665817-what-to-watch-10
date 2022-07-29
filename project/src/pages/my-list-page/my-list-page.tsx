@@ -1,13 +1,19 @@
-import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import { useAppSelector } from '../../hooks/useDispatch';
-import { selectFilms } from '../../store/select';
+import FilmCard from '../../components/film-card/film-card';
 
 
 function MyListPage(): JSX.Element {
-  const films = useAppSelector(selectFilms);
-  const favoriteFilms = films.filter((item) => item.isFavorite);
+  const favoriteFilmsLength = useAppSelector((state) => state.favouriteFilms);
+  const films = useAppSelector((state) => state.films).filter((film) => film.isFavorite);
+  const filmsList =
+    films?.map((film, index) => (
+      <FilmCard key={film.id}
+        film={film}
+        index={index}
+      />
+    ));
 
   return (
     <body>
@@ -44,7 +50,7 @@ function MyListPage(): JSX.Element {
         <header className="page-header user-page__head">
           <Logo />
 
-          <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{favoriteFilms.length}</span></h1>
+          <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{favoriteFilmsLength}</span></h1>
           <ul className="user-block">
             <li className="user-block__item">
               <div className="user-block__avatar">
@@ -61,7 +67,7 @@ function MyListPage(): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <div className="catalog__films-list">
-            <FilmsList />
+            {filmsList}
           </div>
         </section>
 
