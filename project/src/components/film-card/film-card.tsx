@@ -17,11 +17,11 @@ function FilmCard({ film, index }: FilmCardProps): JSX.Element {
     }
     if (isPlaying) {
       videoRef.current.play();
-      return;
+    } else {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+      videoRef.current.load();
     }
-    videoRef.current.pause();
-    videoRef.current.currentTime = 0;
-    videoRef.current.load();
   }, [isPlaying]);
 
   return (
