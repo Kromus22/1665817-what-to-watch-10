@@ -22,7 +22,7 @@ function FilmsListMain(): JSX.Element {
       <div className="catalog__films-list">
         {filmsList}
       </div>
-      <ShowMoreButton />
+      <ShowMoreButton sortedFilms={sortedFilms} />
     </>
   );
 }
