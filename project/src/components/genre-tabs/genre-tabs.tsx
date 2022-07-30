@@ -3,7 +3,7 @@ import { changeGenre } from '../../store/actions';
 import GenreButton from '../genre-button/genre-button';
 import { selectFilmGenres } from '../../store/select';
 
-const MAX_GENRES_COUNT = 9;
+const MAX_GENRES_COUNT = 10;
 
 function GenreTabs(): JSX.Element {
   const selectedGenre = useAppSelector((state) => state.genre);
@@ -26,7 +26,6 @@ function GenreTabs(): JSX.Element {
 
   return (
     <ul className="catalog__genres-list">
-      <GenreButton key={'All genres'} genre={'All genres'} isActive={selectedGenre === 'All genres'} onClick={onTabClickHandler} />
       {generateGenreTab}
     </ul>
   );

@@ -8,7 +8,7 @@ export const getTab = () => {
 };
 
 export const getGenres = (filmList: Film[]): string[] =>
-  [...new Set(filmList.map((film) => film.genre))];
+  ['All genres', ...new Set(filmList.map((film) => film.genre))];
 
 export const getFilm = (id: string) =>
   FILMS.find((item) => item.id === parseInt(id, 10));
