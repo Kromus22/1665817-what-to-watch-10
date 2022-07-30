@@ -13,14 +13,15 @@ type MainPageProps = {
   title: string;
   genre: string;
   releaseDate: number;
+  setShowCount: (count: number) => void;
 }
 
-function App({ title, genre, releaseDate }: MainPageProps): JSX.Element {
+function App({ title, genre, releaseDate, setShowCount }: MainPageProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main}
-          element={<MainPage title={title} genre={genre} releaseDate={releaseDate} />}
+          element={<MainPage title={title} genre={genre} releaseDate={releaseDate} setShowCount={setShowCount} />}
         />
         <Route path={AppRoute.SignIn} element={<LoginPage />} />
         <Route path={AppRoute.MyList}

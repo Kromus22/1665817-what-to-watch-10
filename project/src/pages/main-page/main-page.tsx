@@ -9,9 +9,10 @@ type MainPageProps = {
   title: string;
   genre: string;
   releaseDate: number;
+  setShowCount: (count: number) => void;
 }
 
-function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
+function MainPage({ title, genre, releaseDate, setShowCount }: MainPageProps): JSX.Element {
   const navigate = useNavigate();
 
   const favoriteFilmsLength = useAppSelector((state) => state.favouriteFilms);
@@ -119,7 +120,7 @@ function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreTabs />
+          <GenreTabs changeShowCount={setShowCount} />
 
 
           <FilmsListMain />

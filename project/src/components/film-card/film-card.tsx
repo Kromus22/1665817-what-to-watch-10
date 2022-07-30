@@ -1,17 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
 import { Film } from '../../types/films';
-import { useAppSelector } from '../../hooks/useDispatch';
 
 type FilmCardProps = {
   film: Film;
   index: number;
 }
 
-function FilmCard({ film, index }: FilmCardProps): JSX.Element | null {
+function FilmCard({ film, index }: FilmCardProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const isVisible = useAppSelector((state) => index < state.renderedFilmCount);
 
   useEffect(() => {
     if (videoRef.current === null) {
@@ -26,30 +24,28 @@ function FilmCard({ film, index }: FilmCardProps): JSX.Element | null {
     }
   }, [isPlaying]);
 
-  if (isVisible) {
-    return (
-      <article className={'small-film-card catalog__films-card'} onMouseOver={() => {
-        setIsPlaying(true);
-      }} onMouseOut={() => {
-        setIsPlaying(false);
-      }}
-      >
-        <div className="small-film-card__image">
-          <video
-            src={film.previewVideoLink}
-            poster={film.previewImage}
-            loop
-            muted
-            ref={videoRef}
-          />
-        </div>
-        <h3 className="small-film-card__title">
-          <Link className="small-film-card__link" to={`/films/${film.id}`} title={`/films/${film.id}`}>{film.name}</Link>
-        </h3>
-      </article>
-    );
-  }
-  return null;
+
+  return (
+    <article className={'small-film-card catalog__films-card'} onMouseOver={() => {
+      setIsPlaying(true);
+    }} onMouseOut={() => {
+      setIsPlaying(false);
+    }}
+    >
+      <div className="small-film-card__image">
+        <video
+          src={film.previewVideoLink}
+          poster={film.previewImage}
+          loop
+          muted
+          ref={videoRef}
+        />
+      </div>
+      <h3 className="small-film-card__title">
+        <Link className="small-film-card__link" to={`/films/${film.id}`} title={`/films/${film.id}`}>{film.name}</Link>
+      </h3>
+    </article>
+  );
 }
 
 export default FilmCard;
