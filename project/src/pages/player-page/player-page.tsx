@@ -1,15 +1,15 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { Film } from '../../types/films';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import { getFilm } from '../../utils/utils';
 
-type PlayerPageProps = {
-  films: Film[];
-}
 
-function PlayerPage({ films }: PlayerPageProps): JSX.Element {
+function PlayerPage(): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
-  const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
+  const film = getFilm(params.id as string);
 
+  if (!film) {
+    return <Navigate to={'*'} />;
+  }
   const onExitButtonClickHandler = () => {
     const path = `/films/${film.id}`;
     navigate(path);

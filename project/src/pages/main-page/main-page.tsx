@@ -1,26 +1,20 @@
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import { Film } from '../../types/films';
 import { useNavigate } from 'react-router-dom';
-import FilmsList from '../../components/films-list/films-list';
+import FilmsListMain from '../../components/films-list-main/films-list-main';
 import GenreTabs from '../../components/genre-tabs/genre-tabs';
-import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/useDispatch';
 
 type MainPageProps = {
   title: string;
   genre: string;
   releaseDate: number;
-  films: Film[];
 }
 
-function MainPage({ title, genre, releaseDate, films }: MainPageProps): JSX.Element {
+function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
   const navigate = useNavigate();
 
-  const { genreName } = useParams();
-
-  const genreList = genreName
-    ? films.filter((item) => item.genre.toLowerCase() === genreName)
-    : films;
+  const favoriteFilmsLength = useAppSelector((state) => state.favouriteFilms);
 
   const myListButtonClickHandler = () => {
     const path = '/mylist';
@@ -113,7 +107,7 @@ function MainPage({ title, genre, releaseDate, films }: MainPageProps): JSX.Elem
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{films.length}</span>
+                  <span className="film-card__count">{favoriteFilmsLength}</span>
                 </button>
               </div>
             </div>
@@ -125,15 +119,11 @@ function MainPage({ title, genre, releaseDate, films }: MainPageProps): JSX.Elem
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreTabs genreName={genreName} />
+          <GenreTabs />
 
-          <div className="catalog__films-list">
-            <FilmsList films={genreList} />
-          </div>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <FilmsListMain />
+
         </section>
 
         <Footer />

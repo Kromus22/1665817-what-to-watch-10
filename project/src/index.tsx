@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { FILMS } from './mocks/films';
-import { SimilarFilms } from './mocks/similar-films';
+import { store } from './store';
+import { Provider } from 'react-redux';
 
 const Setting = {
   TITLE: 'The Grand Budapest Hotel',
@@ -16,12 +16,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      title={Setting.TITLE}
-      genre={Setting.GENRE}
-      releaseDate={Setting.RELEASE_DATE}
-      films={FILMS}
-      similarFilms={SimilarFilms}
-    />
+    <Provider store={store}>
+      <App
+        title={Setting.TITLE}
+        genre={Setting.GENRE}
+        releaseDate={Setting.RELEASE_DATE}
+      />
+    </Provider>
   </React.StrictMode>,
 );

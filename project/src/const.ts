@@ -5,10 +5,6 @@ export const AppRoute = {
   Main: '/',
   AddReview: '/films/:id/review',
   Player: '/player/:id',
-  Genre: {
-    path: '/genre/:genreName',
-    name: 'genre'
-  },
 };
 
 export enum AuthorizationStatus {
@@ -22,3 +18,5 @@ export enum Tab {
   Details = 'details',
   Reviews = 'reviews',
 }
+
+export const DEFAULT_GENRE = 'All genres';

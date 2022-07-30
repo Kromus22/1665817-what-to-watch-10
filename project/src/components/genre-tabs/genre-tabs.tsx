@@ -1,51 +1,32 @@
-import classNames from 'classnames';
-import { Link } from 'react-router-dom';
-import { getGenres, getGenreUrl } from '../../utils/utils';
-import { FILMS } from '../../mocks/films';
-import { AppRoute } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks/useDispatch';
+import { changeGenre } from '../../store/actions';
+import GenreButton from '../genre-button/genre-button';
+import { selectFilmGenres } from '../../store/select';
 
-const MAX_GENRES_COUNT = 9;
+const MAX_GENRES_COUNT = 10;
 
-type GenreTabsProps = {
-  genreName?: string;
-}
+function GenreTabs(): JSX.Element {
+  const selectedGenre = useAppSelector((state) => state.genre);
+  const genres = useAppSelector(selectFilmGenres);
 
-function GenreTabs({ genreName }: GenreTabsProps): JSX.Element {
-  const genres = getGenres(FILMS);
+  const dispatch = useAppDispatch();
+
+  const onTabClickHandler = (evt: React.MouseEvent) => {
+    const clickedGenre = evt.currentTarget.textContent;
+    if (clickedGenre !== null) {
+      dispatch(changeGenre(clickedGenre));
+    }
+  };
+
+  const generateGenreTab =
+    genres.map((genre) => (
+      <GenreButton key={genre} genre={genre} isActive={selectedGenre === genre} onClick={onTabClickHandler} />
+    )).slice(0, MAX_GENRES_COUNT);
+
 
   return (
     <ul className="catalog__genres-list">
-      <li
-        className={classNames(
-          'catalog__genres-item',
-          { 'catalog__genres-item--active': !genreName }
-        )}
-      >
-        <Link
-          to={AppRoute.Main}
-          className="catalog__genres-link"
-        >
-          All genres
-        </Link>
-      </li>
-      {
-        genres.map((genre) => (
-          <li
-            key={genre}
-            className={classNames(
-              'catalog__genres-item',
-              { 'catalog__genres-item--active': genreName === genre.toLowerCase() }
-            )}
-          >
-            <Link
-              to={getGenreUrl(genre)}
-              className="catalog__genres-link"
-            >
-              {genre}
-            </Link>
-          </li>
-        )).slice(0, MAX_GENRES_COUNT)
-      }
+      {generateGenreTab}
     </ul>
   );
 }

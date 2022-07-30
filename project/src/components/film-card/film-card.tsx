@@ -1,58 +1,47 @@
 import { Link } from 'react-router-dom';
+import { useRef, useEffect, useState } from 'react';
 import { Film } from '../../types/films';
-import { useRef, useEffect } from 'react';
-import classNames from 'classnames';
-
-const PLAY_TIMEOUT = 1000;
 
 type FilmCardProps = {
   film: Film;
-  activeCard: number | null;
-  onMouseEnter: (id: number) => void;
-  onMouseLeave: () => void;
+  index: number;
 }
 
-function FilmCard({ film, activeCard, onMouseEnter, onMouseLeave }: FilmCardProps): JSX.Element {
-
-  const { id, previewImage, previewVideoLink, name } = film;
+function FilmCard({ film, index }: FilmCardProps): JSX.Element {
+  const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (activeCard === id) {
-        videoRef.current?.play();
-      }
-    }, PLAY_TIMEOUT);
-    if (activeCard !== id) {
-      videoRef.current?.pause();
-      videoRef.current?.load();
+    if (videoRef.current === null) {
+      return;
     }
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [activeCard, id]);
+    if (isPlaying) {
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+      videoRef.current.load();
+    }
+  }, [isPlaying]);
 
   return (
-    <article className={
-      classNames(
-        'small-film-card',
-        'catalog__films-card',
-        { 'active': activeCard === id }
-      )
-    } onMouseEnter={() => onMouseEnter(id)} onMouseLeave={onMouseLeave}
+    <article className={'small-film-card catalog__films-card'} onMouseOver={() => {
+      setIsPlaying(true);
+    }} onMouseOut={() => {
+      setIsPlaying(false);
+    }}
     >
       <div className="small-film-card__image">
         <video
-          src={previewVideoLink}
-          poster={previewImage}
+          src={film.previewVideoLink}
+          poster={film.previewImage}
           loop
           muted
           ref={videoRef}
         />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`} title={`/films/${id}`}>{name}</Link>
+        <Link className="small-film-card__link" to={`/films/${film.id}`} title={`/films/${film.id}`}>{film.name}</Link>
       </h3>
     </article>
   );

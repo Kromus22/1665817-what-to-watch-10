@@ -1,15 +1,12 @@
-import { useParams } from 'react-router-dom';
 import { Film } from '../../types/films';
 
 type DetailsProps = {
-  films: Film[];
+  film: Film;
 }
 
-function Details({ films }: DetailsProps): JSX.Element {
-  const params = useParams();
-  const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
+function Details({ film }: DetailsProps): JSX.Element {
 
-  const actorsList = film.starring[0].split(',').map((star) => `${star}`, '');
+  const actorsList = film?.starring[0].split(',').map((star) => `${star}`, '');
 
   const huminazeFilmDuration = (minutes: number) => {
     const MINUTES_IN_HOUR = 60;
@@ -40,7 +37,7 @@ function Details({ films }: DetailsProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{huminazeFilmDuration(film.runTime)}</span>
+          <span className="film-card__details-value">{film.runTime !== undefined ? huminazeFilmDuration(film.runTime) : null}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
