@@ -8,7 +8,6 @@ const Setting = {
   TITLE: 'The Grand Budapest Hotel',
   GENRE: 'Drama',
   RELEASE_DATE: 2014,
-  setShowCount: (count: number) => void;
 };
 
 const root = ReactDOM.createRoot(
@@ -22,7 +21,6 @@ root.render(
         title={Setting.TITLE}
         genre={Setting.GENRE}
         releaseDate={Setting.RELEASE_DATE}
-        setShowCount={setShowCount}
       />
     </Provider>
   </React.StrictMode>,
