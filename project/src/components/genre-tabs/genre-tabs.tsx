@@ -2,8 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useDispatch';
 import { changeGenre } from '../../store/actions';
 import GenreButton from '../genre-button/genre-button';
 import { selectFilmGenres } from '../../store/select';
-
-const MAX_GENRES_COUNT = 10;
+import { MAX_GENRES_COUNT } from '../../const';
 
 function GenreTabs(): JSX.Element {
   const selectedGenre = useAppSelector((state) => state.genre);
@@ -17,6 +16,7 @@ function GenreTabs(): JSX.Element {
       dispatch(changeGenre(clickedGenre));
     }
   };
+
 
   const generateGenreTab =
     genres.map((genre) => (

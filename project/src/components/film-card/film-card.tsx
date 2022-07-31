@@ -24,6 +24,7 @@ function FilmCard({ film, index }: FilmCardProps): JSX.Element {
     }
   }, [isPlaying]);
 
+
   return (
     <article className={'small-film-card catalog__films-card'} onMouseOver={() => {
       setIsPlaying(true);
