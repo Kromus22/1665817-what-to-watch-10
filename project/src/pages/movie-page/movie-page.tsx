@@ -1,4 +1,4 @@
-import FilmsList from '../../components/films-list/films-list';
+import SimilarFilms from '../../components/similar-films/similar-films';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import { useParams, useNavigate, Link, Navigate } from 'react-router-dom';
@@ -151,13 +151,8 @@ function MoviePage(): JSX.Element {
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
 
-
-          <FilmsList films={similarFilms} />
-
-        </section>
+        <SimilarFilms similarFilms={similarFilms} />
 
         <Footer />
       </div>
