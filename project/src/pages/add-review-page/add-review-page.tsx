@@ -1,5 +1,5 @@
 import Logo from '../../components/logo/logo';
-import { Link, useParams, Navigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SendingReviewsForm from '../../components/send-review/send-review';
 import { useAppSelector } from '../../hooks/useDispatch';
 

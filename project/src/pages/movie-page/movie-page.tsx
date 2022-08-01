@@ -1,7 +1,7 @@
 import SimilarFilms from '../../components/similar-films/similar-films';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import { useParams, useNavigate, Link, Navigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import Overview from '../../components/overview/overview';
 import Details from '../../components/details/details';
 import Reviews from '../../components/reviews/reviews';
