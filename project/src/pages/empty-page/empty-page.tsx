@@ -3,9 +3,7 @@ import Logo from '../../components/logo/logo';
 
 function EmptyPage(): JSX.Element {
   return (
-    <body>
-
-
+    <>
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-header.jpg" alt="Some background" />
@@ -27,7 +25,8 @@ function EmptyPage(): JSX.Element {
 
         <Link to="/">Go to main page</Link>
       </div>
-    </body>
+    </>
+
   );
 }
 

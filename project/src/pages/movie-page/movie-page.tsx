@@ -42,7 +42,7 @@ function MoviePage(): JSX.Element {
   };
 
   return (
-    <body>
+    <>
 
       <section className="film-card film-card--full" style={bckgColor}>
         <div className="film-card__hero">
@@ -129,7 +129,7 @@ function MoviePage(): JSX.Element {
 
         <Footer />
       </div>
-    </body>
+    </>
   );
 }
 

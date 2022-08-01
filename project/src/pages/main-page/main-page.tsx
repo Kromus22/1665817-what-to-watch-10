@@ -24,7 +24,7 @@ function MainPage(): JSX.Element {
   };
 
   return (
-    <body>
+    <>
       <section className="film-card" >
         <div className="film-card__bg">
           <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
@@ -93,7 +93,7 @@ function MainPage(): JSX.Element {
 
         <Footer />
       </div>
-    </body>
+    </>
   );
 }
 

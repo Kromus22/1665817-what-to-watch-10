@@ -37,7 +37,7 @@ function Details({ film }: DetailsProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{film?.runTime !== undefined ? huminazeFilmDuration(film.runTime) : null}</span>
+          <span className="film-card__details-value">{film?.runTime ? huminazeFilmDuration(film.runTime) : null}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
