@@ -6,7 +6,7 @@ import { Film } from '../types/films';
 type InitialState = {
   genre: string;
   films: Film[],
-  promo: Film | null,
+  promo: Film,
   renderedFilmCount: number,
   isDataLoaded: boolean;
   authorizationStatus: AuthorizationStatus,
@@ -15,7 +15,7 @@ type InitialState = {
 const initialState: InitialState = {
   genre: DEFAULT_GENRE,
   films: [],
-  promo: null,
+  promo: {} as Film,
   renderedFilmCount: DEFAULT_SHOW_CARDS,
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
