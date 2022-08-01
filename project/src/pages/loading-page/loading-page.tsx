@@ -1,6 +1,4 @@
-import Logo from '../../components/logo/logo';
-
-function HeadGuestPage(): JSX.Element {
+function LoadingPage(): JSX.Element {
   return (
     <body>
 
@@ -13,16 +11,17 @@ function HeadGuestPage(): JSX.Element {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
-          <Logo />
-
           <div className="user-block">
             <a href="sign-in.html" className="user-block__link">Sign in</a>
           </div>
         </header>
 
       </section>
+      <div>
+        <p>Loading... Please wait.</p>
+      </div>
     </body>
   );
 }
 
-export default HeadGuestPage;
+export default LoadingPage;

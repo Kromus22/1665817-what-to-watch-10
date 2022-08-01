@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
 import { Film } from '../../types/films';
+import { PLAY_TIMEOUT } from '../../const';
 
 type FilmCardProps = {
   film: Film;
@@ -12,16 +13,21 @@ function FilmCard({ film, index }: FilmCardProps): JSX.Element {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    if (videoRef.current === null) {
-      return;
+    const timer = setTimeout(() => {
+      if (isPlaying) {
+        videoRef.current?.play();
+      }
+    }, PLAY_TIMEOUT
+    );
+
+    if (!isPlaying) {
+      videoRef.current?.pause();
+      videoRef.current?.load();
     }
-    if (isPlaying) {
-      videoRef.current.play();
-    } else {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-      videoRef.current.load();
-    }
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [isPlaying]);
 
 

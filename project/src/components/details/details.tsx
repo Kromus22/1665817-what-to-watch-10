@@ -1,7 +1,7 @@
 import { Film } from '../../types/films';
 
 type DetailsProps = {
-  film: Film;
+  film: Film | null;
 }
 
 function Details({ film }: DetailsProps): JSX.Element {
@@ -24,7 +24,7 @@ function Details({ film }: DetailsProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Director</strong>
-          <span className="film-card__details-value">{film.director}</span>
+          <span className="film-card__details-value">{film?.director}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
@@ -37,15 +37,15 @@ function Details({ film }: DetailsProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{film.runTime !== undefined ? huminazeFilmDuration(film.runTime) : null}</span>
+          <span className="film-card__details-value">{film?.runTime !== undefined ? huminazeFilmDuration(film.runTime) : null}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
-          <span className="film-card__details-value">{film.genre}</span>
+          <span className="film-card__details-value">{film?.genre}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Released</strong>
-          <span className="film-card__details-value">{film.released}</span>
+          <span className="film-card__details-value">{film?.released}</span>
         </p>
       </div>
     </div>

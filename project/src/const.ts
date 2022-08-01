@@ -19,9 +19,17 @@ export enum Tab {
   Reviews = 'reviews',
 }
 
+export enum APIRoute {
+  Films = '/films',
+  Promo = '/promo',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export const DEFAULT_GENRE = 'All genres';
 
 export const DEFAULT_SHOW_CARDS = 8;
 
 export const CARDS_PER_STEP = 8;
 export const MAX_GENRES_COUNT = 10;
+export const PLAY_TIMEOUT = 1000;
