@@ -18,7 +18,7 @@ function MoviePage(): JSX.Element {
   const params = useParams();
   const films = useAppSelector((state) => state.films);
   const film = films.find((filmA) => String(filmA.id) === params.id);
-  const favoriteFilmsLength = useAppSelector((state) => state.favouriteFilms);
+  const favoriteFilmsLength = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite).length;
   const similarFilms = films.filter((filmA) => (filmA.genre === film?.genre) && filmA.id !== film?.id).slice(0, MAX_SIMILAR_FILMS_COUNT);
 
   if (!film) {
@@ -36,6 +36,10 @@ function MoviePage(): JSX.Element {
   };
 
   const tab = getTab();
+
+  const bckgColor = {
+    backgroundColor: `${film?.backgroundColor}`
+  };
 
   return (
     <body>
@@ -71,7 +75,7 @@ function MoviePage(): JSX.Element {
         </svg>
       </div>
 
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={bckgColor}>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={film.backgroundImage} alt={film.name} />

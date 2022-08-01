@@ -3,11 +3,11 @@ import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
 import ShowMoreButton from '../show-more-button/show-more-button';
 import { CARDS_PER_STEP } from '../../const';
 import { showMore } from '../../store/actions';
+import { Film } from '../../types/films';
 
 
-function FilmsListMain(): JSX.Element {
+function FilmsListMain({ films }: { films: Film[] }): JSX.Element {
   const dispatch = useAppDispatch();
-  const films = useAppSelector((state) => state.films);
   const selectedGenre = useAppSelector((state) => state.genre);
   const renderedFilmCount = useAppSelector((state) => state.renderedFilmCount);
   const sortedFilms = films.filter((film) => selectedGenre === 'All genres' ? films : film.genre === selectedGenre);

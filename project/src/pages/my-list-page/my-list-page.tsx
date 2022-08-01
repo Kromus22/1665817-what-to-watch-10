@@ -5,7 +5,7 @@ import FilmCard from '../../components/film-card/film-card';
 
 
 function MyListPage(): JSX.Element {
-  const favoriteFilmsLength = useAppSelector((state) => state.favouriteFilms);
+  const favoriteFilmsLength = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite).length;
   const films = useAppSelector((state) => state.films).filter((film) => film.isFavorite);
   const filmsList =
     films?.map((film, index) => (

@@ -1,12 +1,13 @@
 import Logo from '../../components/logo/logo';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import SendingReviewsForm from '../../components/send-review/send-review';
-import { getFilm } from '../../utils/utils';
+import { useAppSelector } from '../../hooks/useDispatch';
 
 
 function AddReviewPage(): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const params = useParams();
-  const film = getFilm(params.id as string);
+  const film = films.find((filmA) => String(filmA.id) === params.id);
 
   if (!film) {
     return <Navigate to={'*'} />;

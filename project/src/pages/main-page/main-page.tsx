@@ -5,16 +5,13 @@ import FilmsListMain from '../../components/films-list-main/films-list-main';
 import GenreTabs from '../../components/genre-tabs/genre-tabs';
 import { useAppSelector } from '../../hooks/useDispatch';
 
-type MainPageProps = {
-  title: string;
-  genre: string;
-  releaseDate: number;
-}
 
-function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
+function MainPage(): JSX.Element {
   const navigate = useNavigate();
 
-  const favoriteFilmsLength = useAppSelector((state) => state.favouriteFilms);
+  const favoriteFilmsLength = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite).length;
+  const films = useAppSelector((state) => state.films);
+  const promoFilm = useAppSelector((state) => state.promo);
 
   const myListButtonClickHandler = () => {
     const path = '/mylist';
@@ -85,14 +82,14 @@ function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={promoFilm?.posterImage} alt={promoFilm?.name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">{promoFilm?.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{releaseDate}</span>
+                <span className="film-card__genre">{promoFilm?.genre}</span>
+                <span className="film-card__year">{promoFilm?.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -122,7 +119,7 @@ function MainPage({ title, genre, releaseDate }: MainPageProps): JSX.Element {
           <GenreTabs />
 
 
-          <FilmsListMain />
+          <FilmsListMain films={films} />
 
         </section>
 
