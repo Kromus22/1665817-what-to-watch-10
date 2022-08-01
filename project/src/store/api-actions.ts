@@ -26,7 +26,7 @@ export const fetchPromoAction = createAsyncThunk<void, undefined, {
   'data/fetchPromo',
   async (_arg, { dispatch, extra: api }) => {
     const { data } = await api.get<Film>(APIRoute.Promo);
-    dispatch(setDataLoadedStatus(true));
+    dispatch(setDataLoadedStatus(false));
     dispatch(loadPromo(data));
   },
 );

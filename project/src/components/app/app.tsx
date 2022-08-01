@@ -15,9 +15,9 @@ import LoadingPage from '../../pages/loading-page/loading-page';
 function App(): JSX.Element {
   const { isDataLoaded } = useAppSelector((state) => state);
 
-  // if (isDataLoaded) {
-  //   return <LoadingPage />;
-  // }
+  if (isDataLoaded) {
+    return <LoadingPage />;
+  }
 
   return (
     <BrowserRouter>

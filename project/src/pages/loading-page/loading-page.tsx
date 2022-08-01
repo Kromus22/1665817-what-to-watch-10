@@ -1,6 +1,3 @@
-import { Link } from 'react-router-dom';
-import Logo from '../../components/logo/logo';
-
 function LoadingPage(): JSX.Element {
   return (
     <body>
@@ -41,8 +38,6 @@ function LoadingPage(): JSX.Element {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
-          <Logo />
-
           <div className="user-block">
             <a href="sign-in.html" className="user-block__link">Sign in</a>
           </div>
@@ -51,8 +46,6 @@ function LoadingPage(): JSX.Element {
       </section>
       <div>
         <p>Loading... Please wait.</p>
-
-        <Link to="/">Go to main page</Link>
       </div>
     </body>
   );
