@@ -3,6 +3,7 @@ import Logo from '../logo/logo';
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
 import { logoutAction } from '../../store/api-actions';
+import className from 'classnames';
 
 type HeaderProps = {
   isMyList?: boolean;
@@ -14,7 +15,7 @@ function Header({ isMyList, favoriteCount }: HeaderProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
-    <header className="page-header film-card__head">
+    <header className={className('page-header', isMyList ? 'user-page__head' : 'film-card__head')}>
       <Logo />
       {isMyList ?
         <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{favoriteCount}</span></h1> :
