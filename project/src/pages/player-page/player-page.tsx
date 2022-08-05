@@ -8,9 +8,6 @@ function PlayerPage(): JSX.Element {
   const params = useParams();
   const film = films.find((filmA) => String(filmA.id) === params.id);
 
-  // if (!film) {
-  //   return <Navigate to={'*'} />;
-  // }
   const onExitButtonClickHandler = () => {
     const path = `/films/${film?.id}`;
     navigate(path);

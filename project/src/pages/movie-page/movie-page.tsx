@@ -1,16 +1,14 @@
 import SimilarFilms from '../../components/similar-films/similar-films';
 import Footer from '../../components/footer/footer';
-import Logo from '../../components/logo/logo';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import Overview from '../../components/overview/overview';
 import Details from '../../components/details/details';
 import Reviews from '../../components/reviews/reviews';
-import { Tab } from '../../const';
+import { Tab, MAX_SIMILAR_FILMS_COUNT } from '../../const';
 import { getTab } from '../../utils/utils';
 import Tabs from '../../components/tabs/tabs';
 import { useAppSelector } from '../../hooks/useDispatch';
-
-const MAX_SIMILAR_FILMS_COUNT = 4;
+import Header from '../../components/header/header';
 
 
 function MoviePage(): JSX.Element {
@@ -20,10 +18,6 @@ function MoviePage(): JSX.Element {
   const film = films.find((filmA) => String(filmA.id) === params.id);
   const favoriteFilmsLength = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite).length;
   const similarFilms = films.filter((filmA) => (filmA.genre === film?.genre) && filmA.id !== film?.id).slice(0, MAX_SIMILAR_FILMS_COUNT);
-
-  // if (!film) {
-  //   return <Navigate to={'*'} />;
-  // }
 
   const onPlayButtonClickHandler = () => {
     const path = `/player/${film?.id}`;
@@ -52,20 +46,7 @@ function MoviePage(): JSX.Element {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header film-card__head">
-            <Logo />
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a href="#section" className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
+          <Header />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
