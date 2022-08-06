@@ -1,9 +1,9 @@
 import Footer from '../../components/footer/footer';
-import Logo from '../../components/logo/logo';
 import { useNavigate } from 'react-router-dom';
 import FilmsListMain from '../../components/films-list-main/films-list-main';
 import GenreTabs from '../../components/genre-tabs/genre-tabs';
 import { useAppSelector } from '../../hooks/useDispatch';
+import Header from '../../components/header/header';
 
 
 function MainPage(): JSX.Element {
@@ -24,7 +24,7 @@ function MainPage(): JSX.Element {
   };
 
   return (
-    <body>
+    <>
       <section className="film-card" >
         <div className="film-card__bg">
           <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
@@ -32,20 +32,7 @@ function MainPage(): JSX.Element {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header film-card__head">
-          <Logo />
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href="#section" className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+        <Header />
 
         <div className="film-card__wrap">
           <div className="film-card__info">
@@ -93,7 +80,7 @@ function MainPage(): JSX.Element {
 
         <Footer />
       </div>
-    </body>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MyList from '../../pages/my-list-page/my-list-page';
@@ -13,9 +13,9 @@ import LoadingPage from '../../pages/loading-page/loading-page';
 
 
 function App(): JSX.Element {
-  const { isDataLoaded } = useAppSelector((state) => state);
+  const { isDataLoaded, authorizationStatus } = useAppSelector((state) => state);
 
-  if (isDataLoaded) {
+  if (!isDataLoaded) {
     return <LoadingPage />;
   }
 
@@ -29,7 +29,7 @@ function App(): JSX.Element {
         <Route path={AppRoute.MyList}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.Auth}
+              authorizationStatus={authorizationStatus}
             >
               <MyList />
             </PrivateRoute>
@@ -39,7 +39,7 @@ function App(): JSX.Element {
         <Route path={AppRoute.AddReview}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.Auth}
+              authorizationStatus={authorizationStatus}
             >
               <AddReviewPage />
             </PrivateRoute>

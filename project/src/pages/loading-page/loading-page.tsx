@@ -1,6 +1,6 @@
 function LoadingPage(): JSX.Element {
   return (
-    <body>
+    <>
 
 
       <section className="film-card">
@@ -20,7 +20,7 @@ function LoadingPage(): JSX.Element {
       <div>
         <p>Loading... Please wait.</p>
       </div>
-    </body>
+    </>
   );
 }
 
