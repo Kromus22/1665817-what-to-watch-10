@@ -1,23 +1,35 @@
 import SimilarFilms from '../../components/similar-films/similar-films';
 import Footer from '../../components/footer/footer';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Overview from '../../components/overview/overview';
 import Details from '../../components/details/details';
 import Reviews from '../../components/reviews/reviews';
-import { Tab, MAX_SIMILAR_FILMS_COUNT } from '../../const';
+import { Tab } from '../../const';
 import { getTab } from '../../utils/utils';
 import Tabs from '../../components/tabs/tabs';
-import { useAppSelector } from '../../hooks/useDispatch';
+import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
 import Header from '../../components/header/header';
+import { fetchFilm, fetchSimilarFilms, fetchFilmComments } from '../../store/api-actions';
+import { useEffect } from 'react';
+import AddReviewButton from '../../components/add-review-btn/add-review-btn';
+import { AuthorizationStatus } from '../../const';
 
 
 function MoviePage(): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
-  const films = useAppSelector((state) => state.films);
-  const film = films.find((filmA) => String(filmA.id) === params.id);
+  const dispatch = useAppDispatch();
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const filmComments = useAppSelector((state) => state.filmComments);
+  const film = useAppSelector((state) => state.film);
+  const similarFilms = useAppSelector((state) => state.similarFilms);
   const favoriteFilmsLength = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite).length;
-  const similarFilms = films.filter((filmA) => (filmA.genre === film?.genre) && filmA.id !== film?.id).slice(0, MAX_SIMILAR_FILMS_COUNT);
+
+  useEffect(() => {
+    dispatch(fetchFilm(params?.id));
+    dispatch(fetchSimilarFilms(params?.id));
+    dispatch(fetchFilmComments(params?.id));
+  }, [dispatch, params?.id]);
 
   const onPlayButtonClickHandler = () => {
     const path = `/player/${film?.id}`;
@@ -70,7 +82,7 @@ function MoviePage(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">{favoriteFilmsLength}</span>
                 </button>
-                <Link to={`/films/${film?.id}/review`} className="btn film-card__button">Add review</Link>
+                {authStatus === AuthorizationStatus.Auth ? <AddReviewButton id={film?.id} /> : null}
               </div>
             </div>
           </div>
@@ -97,7 +109,7 @@ function MoviePage(): JSX.Element {
 
               {
                 tab === Tab.Reviews &&
-                <Reviews />
+                <Reviews reviews={filmComments} />
               }
             </div>
           </div>

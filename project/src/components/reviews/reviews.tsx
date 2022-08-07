@@ -1,12 +1,17 @@
 import Review from '../review/review';
-import { comments } from '../../mocks/comments';
+import { ReviewType } from '../../types/comments';
 
-function Reviews(): JSX.Element {
+type ReviewsProps = {
+  reviews: ReviewType[] | [];
+}
+
+function Reviews({ reviews }: ReviewsProps): JSX.Element {
+
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
         {
-          comments.map((review) =>
+          reviews.map((review) =>
             <Review key={review.id} review={review} />)
         }
       </div>
