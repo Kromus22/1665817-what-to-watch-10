@@ -25,7 +25,8 @@ export enum APIRoute {
   Promo = '/promo',
   Login = '/login',
   Logout = '/logout',
-  Comments = '/comments'
+  Comments = '/comments',
+  AddReview = '/films/:id/*',
 }
 
 export const DEFAULT_GENRE = 'All genres';

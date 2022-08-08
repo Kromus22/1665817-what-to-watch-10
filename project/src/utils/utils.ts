@@ -26,7 +26,7 @@ const enum RatePoints {
   Awesome = 10,
 }
 
-function getTextRating(rate: number | undefined) {
+function getTextRating(rate?: number) {
   let rating = '';
   if (rate) {
     switch (true) {
