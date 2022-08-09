@@ -13,6 +13,7 @@ import { fetchFilm, fetchSimilarFilms, fetchFilmComments } from '../../store/api
 import { useEffect } from 'react';
 import AddReviewButton from '../../components/add-review-btn/add-review-btn';
 import { AuthorizationStatus } from '../../const';
+import EmptyPage from '../empty-page/empty-page';
 
 
 function MoviePage(): JSX.Element {
@@ -26,13 +27,13 @@ function MoviePage(): JSX.Element {
   const favoriteFilmsLength = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite).length;
 
   useEffect(() => {
-    dispatch(fetchFilm(params?.id));
-    dispatch(fetchSimilarFilms(params?.id));
-    dispatch(fetchFilmComments(params?.id));
-  }, [dispatch, params?.id]);
+    dispatch(fetchFilm(params.id));
+    dispatch(fetchSimilarFilms(params.id));
+    dispatch(fetchFilmComments(params.id));
+  }, [dispatch, params.id]);
 
   const onPlayButtonClickHandler = () => {
-    const path = `/player/${film?.id}`;
+    const path = `/player/${film.id}`;
     navigate(path);
   };
 
@@ -47,13 +48,17 @@ function MoviePage(): JSX.Element {
     backgroundColor: `${film?.backgroundColor}`
   };
 
+  if (!film.name) {
+    return <EmptyPage />;
+  }
+
   return (
     <>
 
       <section className="film-card film-card--full" style={bckgColor}>
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film?.backgroundImage} alt={film?.name} />
+            <img src={film.backgroundImage} alt={film.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -62,10 +67,10 @@ function MoviePage(): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{film?.name}</h2>
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{film?.genre}</span>
-                <span className="film-card__year">{film?.released}</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -82,7 +87,7 @@ function MoviePage(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">{favoriteFilmsLength}</span>
                 </button>
-                {authStatus === AuthorizationStatus.Auth ? <AddReviewButton id={film?.id} /> : null}
+                {authStatus === AuthorizationStatus.Auth ? <AddReviewButton id={film.id} /> : null}
               </div>
             </div>
           </div>
@@ -91,7 +96,7 @@ function MoviePage(): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film?.posterImage} alt={film?.name} width="218" height="327" />
+              <img src={film.posterImage} alt={film.name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
@@ -99,12 +104,12 @@ function MoviePage(): JSX.Element {
 
               {
                 tab === Tab.Overview &&
-                <Overview film={film || null} />
+                <Overview film={film} />
               }
 
               {
                 tab === Tab.Details &&
-                <Details film={film || null} />
+                <Details film={film} />
               }
 
               {

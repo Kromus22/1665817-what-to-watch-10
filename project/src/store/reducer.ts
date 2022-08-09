@@ -12,7 +12,7 @@ type InitialState = {
   isDataLoaded: boolean;
   authorizationStatus: AuthorizationStatus,
   error: string | null | unknown,
-  film: Film | null,
+  film: Film,
   similarFilms: Film[],
   filmComments: ReviewType[] | [],
 }
@@ -25,7 +25,7 @@ const initialState: InitialState = {
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Auth,
   error: null,
-  film: null,
+  film: {} as Film,
   similarFilms: [],
   filmComments: [],
 };

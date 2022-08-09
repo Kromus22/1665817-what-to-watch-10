@@ -9,10 +9,6 @@ function AddReviewPage(): JSX.Element {
   const params = useParams();
   const film = films.find((filmA) => String(filmA.id) === params.id);
 
-  // if (!film) {
-  //   return <Navigate to={'*'} />;
-  // }
-
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
