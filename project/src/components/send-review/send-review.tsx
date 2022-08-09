@@ -1,12 +1,32 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/useDispatch';
+import { DEFALUT_RATING_VALUE } from '../../const';
+import { addReviewAction } from '../../store/api-actions';
+import { AppRoute } from '../../const';
 
-const DEFALUT_RATING_VALUE = 0;
 
 function SendingReviewsForm(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const params = useParams();
+  const navigate = useNavigate();
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number>(DEFALUT_RATING_VALUE);
+
+  const onReviewFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const sendingFormData = {
+      rating: Number(rating),
+      comment: comment,
+    };
+
+    if (rating && comment) {
+      dispatch(addReviewAction([params?.id, sendingFormData]));
+      navigate(`${AppRoute.Films}${params?.id}`);
+    }
+  };
 
   const starsButtonList = Array.from({ length: 10 }, (_, i) => {
     const key = String(10 - i);
@@ -19,7 +39,7 @@ function SendingReviewsForm(): JSX.Element {
   });
 
   return (
-    <form action="#" className="add-review__form">
+    <form action="#" className="add-review__form" onSubmit={onReviewFormSubmit}>
       <div className="rating">
         <div className="rating__stars">
           {starsButtonList}

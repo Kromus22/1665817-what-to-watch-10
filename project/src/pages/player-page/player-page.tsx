@@ -1,21 +1,32 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/useDispatch';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
+import EmptyPage from '../empty-page/empty-page';
+import { useEffect } from 'react';
+import { fetchFilm } from '../../store/api-actions';
 
 
 function PlayerPage(): JSX.Element {
   const navigate = useNavigate();
-  const films = useAppSelector((state) => state.films);
+  const film = useAppSelector((state) => state.film);
   const params = useParams();
-  const film = films.find((filmA) => String(filmA.id) === params.id);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFilm(params.id));
+  }, [dispatch, params.id]);
 
   const onExitButtonClickHandler = () => {
-    const path = `/films/${film?.id}`;
+    const path = `/films/${film.id}`;
     navigate(path);
   };
 
+  if (!film.name) {
+    return <EmptyPage />;
+  }
+
   return (
     <div className="player">
-      <video src={film?.previewVideoLink} className="player__video" poster={film?.previewImage}></video>
+      <video src={film.previewVideoLink} className="player__video" poster={film.previewImage}></video>
 
       <button type="button" className="player__exit" onClick={onExitButtonClickHandler}>Exit</button>
 

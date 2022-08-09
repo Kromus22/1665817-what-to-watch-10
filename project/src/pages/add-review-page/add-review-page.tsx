@@ -1,17 +1,24 @@
 import Logo from '../../components/logo/logo';
 import { Link, useParams } from 'react-router-dom';
 import SendingReviewsForm from '../../components/send-review/send-review';
-import { useAppSelector } from '../../hooks/useDispatch';
+import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
+import { useEffect } from 'react';
+import { fetchFilm } from '../../store/api-actions';
+import EmptyPage from '../empty-page/empty-page';
 
 
 function AddReviewPage(): JSX.Element {
-  const films = useAppSelector((state) => state.films);
   const params = useParams();
-  const film = films.find((filmA) => String(filmA.id) === params.id);
+  const film = useAppSelector((state) => state.film);
+  const dispatch = useAppDispatch();
 
-  // if (!film) {
-  //   return <Navigate to={'*'} />;
-  // }
+  useEffect(() => {
+    dispatch(fetchFilm(params.id));
+  }, [dispatch, params.id]);
+
+  if (!film.name) {
+    return <EmptyPage />;
+  }
 
   return (
     <section className="film-card film-card--full">
