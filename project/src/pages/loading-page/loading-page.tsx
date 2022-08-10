@@ -1,3 +1,5 @@
+import './loading-page.css';
+
 function LoadingPage(): JSX.Element {
   return (
     <>
@@ -19,6 +21,9 @@ function LoadingPage(): JSX.Element {
       </section>
       <div>
         <p>Loading... Please wait.</p>
+        <div className="wave"></div>
+        <div className="wave"></div>
+        <div className="wave"></div>
       </div>
     </>
   );

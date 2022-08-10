@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Header from '../../components/header/header';
+import './empty-page.css';
 
 
 function EmptyPage(): JSX.Element {
@@ -17,6 +18,9 @@ function EmptyPage(): JSX.Element {
       </section>
       <div>
         <p>404 Not Found</p>
+        <div className="wave"></div>
+        <div className="wave"></div>
+        <div className="wave"></div>
 
         <Link to="/">Go to main page</Link>
       </div>
