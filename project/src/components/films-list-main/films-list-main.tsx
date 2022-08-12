@@ -4,12 +4,13 @@ import ShowMoreButton from '../show-more-button/show-more-button';
 import { CARDS_PER_STEP } from '../../const';
 import { showMore } from '../../store/actions';
 import { Film } from '../../types/films';
+import { selectGenre, selectRenderedFilmCount } from '../../store/select';
 
 
 function FilmsListMain({ films }: { films: Film[] }): JSX.Element {
   const dispatch = useAppDispatch();
-  const selectedGenre = useAppSelector((state) => state.genre);
-  const renderedFilmCount = useAppSelector((state) => state.renderedFilmCount);
+  const selectedGenre = useAppSelector(selectGenre);
+  const renderedFilmCount = useAppSelector(selectRenderedFilmCount);
   const sortedFilms = films.filter((film) => selectedGenre === 'All genres' ? films : film.genre === selectedGenre);
 
   const onShowMoreBtnClick = () => {
