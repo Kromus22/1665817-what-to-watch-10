@@ -34,7 +34,6 @@ export enum NameSpace {
   PromoFilm = 'PROMO_FILM',
   Films = 'FILMS',
   Film = 'FILM',
-  Genre = 'GENRE',
   AddReview = 'ADD_REVIEW',
 }
 

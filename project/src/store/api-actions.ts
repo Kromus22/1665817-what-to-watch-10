@@ -2,12 +2,10 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { Film } from '../types/films.js';
-import { requireAuthorization, setError } from './actions';
-import { APIRoute, AuthorizationStatus, AppRoute, TIMEOUT_SHOW_ERROR } from '../const';
+import { APIRoute, AppRoute } from '../const';
 import { saveToken, dropToken } from '../services/token';
 import { UserData } from '../types/user-data';
 import { AuthData } from '../types/auth-data';
-import { store } from './';
 import { ReviewType, NewCommentType } from '../types/comments.js';
 
 export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
@@ -40,13 +38,8 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance
 }>(
   'user/checkAuth',
-  async (_arg, { dispatch, extra: api }) => {
-    try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    } catch {
-      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-    }
+  async (_arg, { extra: api }) => {
+    await api.get(APIRoute.Login);
   },
 );
 
@@ -56,14 +49,9 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   extra: AxiosInstance
 }>(
   'user/login',
-  async ({ login: email, password }, { dispatch, extra: api }) => {
-    try {
-      const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
-      saveToken(token);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    } catch (error) {
-      setError(error);
-    }
+  async ({ login: email, password }, { extra: api }) => {
+    const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
+    saveToken(token);
   },
 );
 
@@ -73,10 +61,9 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance
 }>(
   'user/logout',
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   },
 );
 
@@ -102,16 +89,6 @@ export const fetchSimilarFilms = createAsyncThunk<Film[], string | undefined, {
     const { data } = await api.get<Film[]>(`${AppRoute.Films}${filmId}/similar`);
     const filteredData = data.filter((film) => film.id !== Number(filmId));
     return filteredData;
-  },
-);
-
-export const clearErrorAction = createAsyncThunk(
-  'user/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR,
-    );
   },
 );
 

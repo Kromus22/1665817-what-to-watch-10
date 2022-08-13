@@ -18,7 +18,7 @@ function App(): JSX.Element {
   const isDataLoaded = useAppSelector(selectLoadingDataStatus);
   const authorizationStatus = useAppSelector(selectAuth);
 
-  if (!isDataLoaded) {
+  if (isDataLoaded) {
     return <LoadingPage />;
   }
 
