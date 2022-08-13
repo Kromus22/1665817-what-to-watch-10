@@ -4,10 +4,12 @@ import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 
 type InitialState = {
   authorizationStatus: AuthorizationStatus,
+  error: string | null | unknown,
 }
 
 const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 };
 
 export const userProcess = createSlice({

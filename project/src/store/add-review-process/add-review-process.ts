@@ -4,12 +4,10 @@ import { addReviewAction } from '../api-actions';
 
 type InitialState = {
   isDataLoaded: boolean,
-  error: string | null | unknown,
 }
 
 const initialState: InitialState = {
   isDataLoaded: false,
-  error: null,
 };
 
 export const addReviewProcess = createSlice({
@@ -21,8 +19,7 @@ export const addReviewProcess = createSlice({
       .addCase(addReviewAction.pending, (state) => {
         state.isDataLoaded = true;
       })
-      .addCase(addReviewAction.rejected, (state, action) => {
-        state.error = action.payload;
+      .addCase(addReviewAction.rejected, (state) => {
         state.isDataLoaded = false;
       })
       .addCase(addReviewAction.fulfilled, (state) => {

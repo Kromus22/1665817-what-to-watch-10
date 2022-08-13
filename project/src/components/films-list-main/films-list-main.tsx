@@ -5,6 +5,7 @@ import { CARDS_PER_STEP } from '../../const';
 import { showMore } from '../../store/actions';
 import { Film } from '../../types/films';
 import { selectGenre, selectRenderedFilmCount } from '../../store/films-process/selectors';
+import { useMemo } from 'react';
 
 
 function FilmsListMain({ films }: { films: Film[] }): JSX.Element {
@@ -19,13 +20,13 @@ function FilmsListMain({ films }: { films: Film[] }): JSX.Element {
 
   const isShowBtn = renderedFilmCount < sortedFilms.length;
 
-  const filmsList =
+  const filmsList = useMemo(() =>
     sortedFilms?.slice(0, renderedFilmCount).map((film, index) => (
       <FilmCard key={film.id}
         film={film}
         index={index}
       />
-    ));
+    )), [renderedFilmCount, sortedFilms]);
 
   return (
     <>
