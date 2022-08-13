@@ -14,17 +14,20 @@ import { useEffect } from 'react';
 import AddReviewButton from '../../components/add-review-btn/add-review-btn';
 import { AuthorizationStatus } from '../../const';
 import EmptyPage from '../empty-page/empty-page';
+import { selectAuth } from '../../store/user-process/selectors';
+import { selectFilm, selectComments, selectSimilarFilms } from '../../store/film-process/selectors';
+import { selectFavoriteFilms } from '../../store/films-process/selectors';
 
 
 function MoviePage(): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const filmComments = useAppSelector((state) => state.filmComments);
-  const film = useAppSelector((state) => state.film);
-  const similarFilms = useAppSelector((state) => state.similarFilms);
-  const favoriteFilmsLength = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite).length;
+  const authStatus = useAppSelector(selectAuth);
+  const filmComments = useAppSelector(selectComments);
+  const film = useAppSelector(selectFilm);
+  const similarFilms = useAppSelector(selectSimilarFilms);
+  const favoriteFilmsLength = useAppSelector(selectFavoriteFilms).length;
 
   useEffect(() => {
     dispatch(fetchFilm(params.id));

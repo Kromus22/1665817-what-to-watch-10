@@ -4,14 +4,16 @@ import FilmsListMain from '../../components/films-list-main/films-list-main';
 import GenreTabs from '../../components/genre-tabs/genre-tabs';
 import { useAppSelector } from '../../hooks/useDispatch';
 import Header from '../../components/header/header';
+import { selectPromoFilm } from '../../store/promo-film-process/selectors';
+import { selectFilms, selectFavoriteFilms } from '../../store/films-process/selectors';
 
 
 function MainPage(): JSX.Element {
   const navigate = useNavigate();
 
-  const favoriteFilmsLength = useAppSelector((state) => state.films).filter((filmA) => filmA.isFavorite).length;
-  const films = useAppSelector((state) => state.films);
-  const promoFilm = useAppSelector((state) => state.promo);
+  const favoriteFilmsLength = useAppSelector(selectFavoriteFilms).length;
+  const films = useAppSelector(selectFilms);
+  const promoFilm = useAppSelector(selectPromoFilm);
 
   const myListButtonClickHandler = () => {
     const path = '/mylist';

@@ -6,7 +6,7 @@ type DetailsProps = {
 
 function Details({ film }: DetailsProps): JSX.Element {
 
-  const actorsList = film?.starring[0].split(',').map((star) => `${star}`, '');
+  const actorsList = film.starring.join(', ');
 
   const huminazeFilmDuration = (minutes: number) => {
     const MINUTES_IN_HOUR = 60;
