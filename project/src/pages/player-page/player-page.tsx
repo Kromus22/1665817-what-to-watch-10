@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
 import EmptyPage from '../empty-page/empty-page';
 import { useEffect } from 'react';
 import { fetchFilm } from '../../store/api-actions';
-import { selectFilm } from '../../store/select';
+import { selectFilm } from '../../store/film-process/selectors';
 
 
 function PlayerPage(): JSX.Element {

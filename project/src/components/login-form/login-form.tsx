@@ -4,7 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useDispatch';
 import { loginAction } from '../../store/api-actions';
 import ErrorMessage from '../error-message/error-message';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { selectAuth, selectError } from '../../store/select';
+import { selectError } from '../../store/add-review-process/selectors';
+import { selectAuth } from '../../store/user-process/selectors';
 
 function LoginForm(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);

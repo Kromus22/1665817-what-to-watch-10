@@ -4,7 +4,7 @@ import ShowMoreButton from '../show-more-button/show-more-button';
 import { CARDS_PER_STEP } from '../../const';
 import { showMore } from '../../store/actions';
 import { Film } from '../../types/films';
-import { selectGenre, selectRenderedFilmCount } from '../../store/select';
+import { selectGenre, selectRenderedFilmCount } from '../../store/genre-process/selectors';
 
 
 function FilmsListMain({ films }: { films: Film[] }): JSX.Element {

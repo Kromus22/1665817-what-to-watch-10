@@ -14,7 +14,9 @@ import { useEffect } from 'react';
 import AddReviewButton from '../../components/add-review-btn/add-review-btn';
 import { AuthorizationStatus } from '../../const';
 import EmptyPage from '../empty-page/empty-page';
-import { selectFilm, selectFavoriteFilms, selectAuth, selectComments, selectSimilarFilms } from '../../store/select';
+import { selectAuth } from '../../store/user-process/selectors';
+import { selectFilm, selectComments, selectSimilarFilms } from '../../store/film-process/selectors';
+import { selectFavoriteFilms } from '../../store/films-process/selectors';
 
 
 function MoviePage(): JSX.Element {

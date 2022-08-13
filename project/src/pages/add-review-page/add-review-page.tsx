@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
 import { useEffect } from 'react';
 import { fetchFilm } from '../../store/api-actions';
 import EmptyPage from '../empty-page/empty-page';
-import { selectFilm } from '../../store/select';
+import { selectFilm } from '../../store/film-process/selectors';
 
 
 function AddReviewPage(): JSX.Element {

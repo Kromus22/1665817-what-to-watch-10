@@ -4,7 +4,7 @@ import { AuthorizationStatus } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
 import { logoutAction } from '../../store/api-actions';
 import className from 'classnames';
-import { selectAuth } from '../../store/select';
+import { selectAuth } from '../../store/user-process/selectors';
 
 type HeaderProps = {
   isMyList?: boolean;

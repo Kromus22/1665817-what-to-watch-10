@@ -4,7 +4,8 @@ import FilmsListMain from '../../components/films-list-main/films-list-main';
 import GenreTabs from '../../components/genre-tabs/genre-tabs';
 import { useAppSelector } from '../../hooks/useDispatch';
 import Header from '../../components/header/header';
-import { selectFilms, selectPromoFilm, selectFavoriteFilms } from '../../store/select';
+import { selectPromoFilm } from '../../store/promo-film-process/selectors';
+import { selectFilms, selectFavoriteFilms } from '../../store/films-process/selectors';
 
 
 function MainPage(): JSX.Element {

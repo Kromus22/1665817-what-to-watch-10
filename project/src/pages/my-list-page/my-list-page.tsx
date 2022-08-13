@@ -2,7 +2,7 @@ import Footer from '../../components/footer/footer';
 import { useAppSelector } from '../../hooks/useDispatch';
 import FilmCard from '../../components/film-card/film-card';
 import Header from '../../components/header/header';
-import { selectFavoriteFilms } from '../../store/select';
+import { selectFavoriteFilms } from '../../store/films-process/selectors';
 
 
 function MyListPage(): JSX.Element {

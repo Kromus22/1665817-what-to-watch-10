@@ -29,6 +29,15 @@ export enum APIRoute {
   AddReview = '/films/:id/*',
 }
 
+export enum NameSpace {
+  User = 'USER',
+  PromoFilm = 'PROMO_FILM',
+  Films = 'FILMS',
+  Film = 'FILM',
+  Genre = 'GENRE',
+  AddReview = 'ADD_REVIEW',
+}
+
 export const DEFAULT_GENRE = 'All genres';
 
 export const DEFAULT_SHOW_CARDS = 8;
