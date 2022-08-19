@@ -1,4 +1,9 @@
 import { Tab } from '../const';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+dayjs.extend(duration);
+
+const HOUR = 360;
 
 export const getTab = () => {
   const queryParams = (new URL(document.location.href)).searchParams;
@@ -44,6 +49,27 @@ function getTextRating(rate?: number) {
   }
   return rating;
 }
+
+enum DurationTemplate {
+  MinutesSeconds = 'm[:] s',
+  HoursMinutesSeconds = 'H[:] m[:] s',
+  HoursMinutes = 'H[h] m[m]'
+}
+
+enum TimeMetric {
+  Second = 'seconds',
+  Minute = 'minutes',
+}
+
+export const formattingLastTime = (runtime: number) => {
+  const timeDuration = dayjs.duration(runtime, TimeMetric.Second);
+
+  if ((runtime / HOUR) < 1) {
+    return timeDuration.format(DurationTemplate.MinutesSeconds);
+  }
+
+  return timeDuration.format(DurationTemplate.HoursMinutesSeconds);
+};
 
 export default getTextRating;
 

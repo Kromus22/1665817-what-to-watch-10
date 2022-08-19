@@ -37,6 +37,11 @@ export enum NameSpace {
   AddReview = 'ADD_REVIEW',
 }
 
+export enum PlayerProgress {
+  Start = 0,
+  End = 100,
+}
+
 export const DEFAULT_GENRE = 'All genres';
 
 export const DEFAULT_SHOW_CARDS = 8;
