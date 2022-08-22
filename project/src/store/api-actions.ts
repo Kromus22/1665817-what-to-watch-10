@@ -7,6 +7,8 @@ import { saveToken, dropToken } from '../services/token';
 import { UserData } from '../types/user-data';
 import { AuthData } from '../types/auth-data';
 import { ReviewType, NewCommentType } from '../types/comments.js';
+import { setFilm } from './actions';
+import { FavoriteData } from '../types/favs-film-data.js';
 
 export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
   dispatch: AppDispatch,
@@ -127,12 +129,15 @@ export const fetchFavorites = createAsyncThunk<Film[], undefined, {
   }
 );
 
-export const addToFavorite = createAsyncThunk<Film, { id: number, status: number }, {
+export const addToFavorite = createAsyncThunk<Film, FavoriteData, {
+  dispatch: AppDispatch,
+  state: State,
   extra: AxiosInstance
 }>(
   'favorite/addToFavorite',
-  async ({ id, status }, { extra: api }) => {
-    const { data } = await api.post<Film>(`${APIRoute.Favorite}/${id}/${status}`);
+  async ({ id, status }, { dispatch, extra: api }) => {
+    const { data } = await api.post<Film>(`${APIRoute.Favorite}/${id}/${Number(!status)}`);
+    dispatch(setFilm(data));
     return data;
   }
 );
