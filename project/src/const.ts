@@ -27,6 +27,7 @@ export enum APIRoute {
   Logout = '/logout',
   Comments = '/comments',
   AddReview = '/films/:id/*',
+  Favorite = '/favorite',
 }
 
 export enum NameSpace {
@@ -35,6 +36,11 @@ export enum NameSpace {
   Films = 'FILMS',
   Film = 'FILM',
   AddReview = 'ADD_REVIEW',
+}
+
+export enum PlayerProgress {
+  Start = 0,
+  End = 100,
 }
 
 export const DEFAULT_GENRE = 'All genres';

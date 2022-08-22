@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import Logo from '../logo/logo';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, AppRoute } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
 import { logoutAction } from '../../store/api-actions';
 import className from 'classnames';
-import { selectAuth } from '../../store/user-process/selectors';
+import { selectAuth, selectAvatar } from '../../store/user-process/selectors';
 
 type HeaderProps = {
   isMyList?: boolean;
@@ -13,6 +13,7 @@ type HeaderProps = {
 
 function Header({ isMyList, favoriteCount }: HeaderProps): JSX.Element {
   const authorizationStatus = useAppSelector(selectAuth);
+  const avatarUrl = useAppSelector(selectAvatar);
   const dispatch = useAppDispatch();
 
   return (
@@ -25,9 +26,11 @@ function Header({ isMyList, favoriteCount }: HeaderProps): JSX.Element {
       {authorizationStatus === AuthorizationStatus.Auth ?
         <ul className="user-block">
           <li className="user-block__item" >
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
+            <Link to={AppRoute.MyList} >
+              <div className="user-block__avatar">
+                <img src={avatarUrl} alt="User avatar" width="63" height="63" />
+              </div>
+            </Link>
           </li >
           <li className="user-block__item">
             <Link
