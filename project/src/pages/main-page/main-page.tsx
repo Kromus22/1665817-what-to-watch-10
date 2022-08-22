@@ -5,20 +5,15 @@ import GenreTabs from '../../components/genre-tabs/genre-tabs';
 import { useAppSelector } from '../../hooks/useDispatch';
 import Header from '../../components/header/header';
 import { selectPromoFilm } from '../../store/promo-film-process/selectors';
-import { selectFilms, selectFavoriteFilms } from '../../store/films-process/selectors';
+import { selectFilms } from '../../store/films-process/selectors';
+import MyListBtn from '../../components/my-list-btn/my-list-btn';
 
 
 function MainPage(): JSX.Element {
   const navigate = useNavigate();
 
-  const favoriteFilmsLength = useAppSelector(selectFavoriteFilms).length;
   const films = useAppSelector(selectFilms);
   const promoFilm = useAppSelector(selectPromoFilm);
-
-  const myListButtonClickHandler = () => {
-    const path = '/mylist';
-    navigate(path);
-  };
 
   const playButtonClickHandler = () => {
     const path = '/player/1';
@@ -56,13 +51,7 @@ function MainPage(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button" onClick={myListButtonClickHandler}>
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">{favoriteFilmsLength}</span>
-                </button>
+                <MyListBtn />
               </div>
             </div>
           </div>

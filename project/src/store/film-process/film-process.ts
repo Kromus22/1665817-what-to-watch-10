@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { fetchFilm, fetchFilmComments, fetchSimilarFilms } from '../api-actions';
+import { fetchFilm, fetchFilmComments, fetchSimilarFilms, addToFavorite } from '../api-actions';
 import { Film } from '../../types/films';
 import { ReviewType } from '../../types/comments';
 
@@ -44,6 +44,11 @@ export const filmProcess = createSlice({
       .addCase(fetchFilmComments.fulfilled, (state, action) => {
         state.filmComments = action.payload;
         state.isDataLoaded = false;
+      })
+      .addCase(addToFavorite.fulfilled, (state, action) => {
+        if (state.film.id === action.payload.id) {
+          state.film = action.payload;
+        }
       });
   }
 });

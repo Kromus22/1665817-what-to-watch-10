@@ -16,7 +16,7 @@ import { AuthorizationStatus } from '../../const';
 import EmptyPage from '../empty-page/empty-page';
 import { selectAuth } from '../../store/user-process/selectors';
 import { selectFilm, selectComments, selectSimilarFilms } from '../../store/film-process/selectors';
-import { selectFavoriteFilms } from '../../store/films-process/selectors';
+import MyListBtn from '../../components/my-list-btn/my-list-btn';
 
 
 function MoviePage(): JSX.Element {
@@ -27,7 +27,6 @@ function MoviePage(): JSX.Element {
   const filmComments = useAppSelector(selectComments);
   const film = useAppSelector(selectFilm);
   const similarFilms = useAppSelector(selectSimilarFilms);
-  const favoriteFilmsLength = useAppSelector(selectFavoriteFilms).length;
 
   useEffect(() => {
     dispatch(fetchFilm(params.id));
@@ -37,11 +36,6 @@ function MoviePage(): JSX.Element {
 
   const onPlayButtonClickHandler = () => {
     const path = `/player/${film.id}`;
-    navigate(path);
-  };
-
-  const onMyListButtonClickHandler = () => {
-    const path = '/mylist';
     navigate(path);
   };
 
@@ -83,13 +77,7 @@ function MoviePage(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button" onClick={onMyListButtonClickHandler}>
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">{favoriteFilmsLength}</span>
-                </button>
+                <MyListBtn />
                 {authStatus === AuthorizationStatus.Auth ? <AddReviewButton id={film.id} /> : null}
               </div>
             </div>
