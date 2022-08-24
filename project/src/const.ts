@@ -6,6 +6,7 @@ export const AppRoute = {
   Main: '/',
   AddReview: '/films/:id/review',
   Player: '/player/:id',
+  ServerError: '/servererror',
 };
 
 export enum AuthorizationStatus {
@@ -41,6 +42,17 @@ export enum NameSpace {
 export enum PlayerProgress {
   Start = 0,
   End = 100,
+}
+
+export enum CommentLength {
+  Min = 50,
+  Max = 400,
+}
+
+export enum ErrorMessage {
+  SignInValidate = 'We can’t recognize this email and password combination. Please try again.',
+  IncorrectEmail = 'Please enter a valid email address',
+  ServerError = 'Unknown server error'
 }
 
 export const DEFAULT_GENRE = 'All genres';

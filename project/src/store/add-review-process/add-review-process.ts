@@ -1,13 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, AnyAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { addReviewAction } from '../api-actions';
+import { addReviewAction, fetchFilmComments } from '../api-actions';
+import { ReviewType } from '../../types/comments';
 
 type InitialState = {
   isDataLoaded: boolean,
+  error: string,
+  comments: ReviewType[],
 }
 
 const initialState: InitialState = {
   isDataLoaded: false,
+  error: '',
+  comments: [],
 };
 
 export const addReviewProcess = createSlice({
@@ -16,14 +21,20 @@ export const addReviewProcess = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
+      .addCase(fetchFilmComments.fulfilled, (state, action) => {
+        state.comments = action.payload;
+      })
       .addCase(addReviewAction.pending, (state) => {
         state.isDataLoaded = true;
       })
-      .addCase(addReviewAction.rejected, (state) => {
+      .addCase(addReviewAction.rejected, (state, action: AnyAction) => {
         state.isDataLoaded = false;
+        state.error = action.payload;
       })
-      .addCase(addReviewAction.fulfilled, (state) => {
+      .addCase(addReviewAction.fulfilled, (state, action) => {
         state.isDataLoaded = false;
+        state.comments = action.payload;
+        state.error = '';
       });
   }
 });

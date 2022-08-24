@@ -1,11 +1,10 @@
 import { store } from '../store';
-import { setError } from '../store/actions';
+import { setError } from '../store/user-process/user-process';
 import { TIMEOUT_SHOW_ERROR } from '../const';
 
-export const processErrorHandle = (message: string): void => {
-  store.dispatch(setError(message));
+export const processErrorHandle = (): void => {
   setTimeout(
-    () => store.dispatch(setError(null)),
+    () => store.dispatch(setError(false)),
     TIMEOUT_SHOW_ERROR,
   );
 };

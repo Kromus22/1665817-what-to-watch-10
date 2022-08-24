@@ -29,9 +29,11 @@ function MoviePage(): JSX.Element {
   const similarFilms = useAppSelector(selectSimilarFilms);
 
   useEffect(() => {
-    dispatch(fetchFilm(params.id));
-    dispatch(fetchSimilarFilms(params.id));
-    dispatch(fetchFilmComments(params.id));
+    if (params.id) {
+      dispatch(fetchFilm(params.id));
+      dispatch(fetchSimilarFilms(params.id));
+      dispatch(fetchFilmComments(params.id));
+    }
   }, [dispatch, params.id]);
 
   const onPlayButtonClickHandler = () => {
