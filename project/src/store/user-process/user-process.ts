@@ -2,7 +2,7 @@ import { createSlice, AnyAction } from '@reduxjs/toolkit';
 import { NameSpace, AuthorizationStatus } from '../../const';
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 
-type InitialState = {
+export type InitialState = {
   authorizationStatus: AuthorizationStatus,
   error: string,
   avatar: string,

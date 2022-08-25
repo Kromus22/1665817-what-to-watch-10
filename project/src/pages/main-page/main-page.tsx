@@ -8,7 +8,6 @@ import { selectPromoFilm } from '../../store/promo-film-process/selectors';
 import { selectFilms } from '../../store/films-process/selectors';
 import MyListBtn from '../../components/my-list-btn/my-list-btn';
 
-
 function MainPage(): JSX.Element {
   const navigate = useNavigate();
 
@@ -16,7 +15,7 @@ function MainPage(): JSX.Element {
   const promoFilm = useAppSelector(selectPromoFilm);
 
   const playButtonClickHandler = () => {
-    const path = '/player/1';
+    const path = `/player/${promoFilm.id}`;
     navigate(path);
   };
 
