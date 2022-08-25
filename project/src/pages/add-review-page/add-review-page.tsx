@@ -6,12 +6,14 @@ import { useEffect } from 'react';
 import { fetchFilm } from '../../store/api-actions';
 import EmptyPage from '../empty-page/empty-page';
 import { selectFilm } from '../../store/film-process/selectors';
+import { selectAvatar } from '../../store/user-process/selectors';
 
 
 function AddReviewPage(): JSX.Element {
   const params = useParams();
   const film = useAppSelector(selectFilm);
   const dispatch = useAppDispatch();
+  const avatarUrl = useAppSelector(selectAvatar);
 
   useEffect(() => {
     dispatch(fetchFilm(params.id));
@@ -25,7 +27,7 @@ function AddReviewPage(): JSX.Element {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={film?.posterImage} alt={film?.name} />
+          <img src={film.posterImage} alt={film.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -36,7 +38,7 @@ function AddReviewPage(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${film?.id}`} className="breadcrumbs__link">{film?.name}</Link>
+                <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <Link to="#" className="breadcrumbs__link">Add review</Link>
@@ -47,7 +49,7 @@ function AddReviewPage(): JSX.Element {
           <ul className="user-block">
             <li className="user-block__item">
               <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                <img src={avatarUrl} alt="User avatar" width="63" height="63" />
               </div>
             </li>
             <li className="user-block__item">
@@ -57,7 +59,7 @@ function AddReviewPage(): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={film?.posterImage} alt={film?.name} width="218" height="327" />
+          <img src={film.posterImage} alt={film.name} width="218" height="327" />
         </div>
       </div>
 

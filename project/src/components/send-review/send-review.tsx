@@ -1,10 +1,11 @@
-import { useState, FormEvent } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, FormEvent, Fragment } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatch';
 import { DEFALUT_RATING_VALUE } from '../../const';
 import { addReviewAction } from '../../store/api-actions';
 import { useValidComment } from '../../hooks/use-valid-comm';
 import { selectCommentError, selectIsSendingComment } from '../../store/add-review-process/selectors';
+import { AppRoute } from '../../const';
 
 
 function SendingReviewsForm(): JSX.Element {
@@ -15,21 +16,23 @@ function SendingReviewsForm(): JSX.Element {
   const isSending = useAppSelector(selectIsSendingComment);
   const error = useAppSelector(selectCommentError);
   const isValidForm = useValidComment(comment, rating);
+  const navigate = useNavigate();
 
   const onReviewFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     dispatch(addReviewAction([params.id, { comment, rating }]));
+    navigate(`${AppRoute.Films}${params?.id}`);
   };
 
   const starsButtonList = Array.from({ length: 10 }, (_, i) => {
     const key = String(10 - i);
 
     return (
-      <>
+      <Fragment key={key}>
         <input className="rating__input" id={`star-${key}`} type="radio" name="rating" value={`${key}`} onChange={(evt) => setRating(Number(evt.currentTarget.value))} />
         <label className="rating__label" htmlFor={`star-${key}`}>{`Rating ${key}`}</label>
-      </>);
+      </Fragment>);
   });
 
   return (

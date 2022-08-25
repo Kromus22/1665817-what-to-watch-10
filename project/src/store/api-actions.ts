@@ -124,6 +124,7 @@ export const addReviewAction = createAsyncThunk<ReviewType[], [(string | undefin
   async ([filmID, { comment, rating }], { dispatch, extra: api, rejectWithValue }) => {
     try {
       const { data } = await api.post<ReviewType[]>(`${APIRoute.Comments}/${filmID}`, { comment, rating });
+      dispatch(redirectToRoot(`${AppRoute.Films}${filmID}`));
       return data;
     } catch (err) {
       const error = err as AxiosError<{ error: string }>;
