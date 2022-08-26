@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
-import { selectFavoriteFilms } from '../../store/films-process/selectors';
+import { getFavoriteFilms } from '../../store/films-process/selectors';
 import { addToFavorite, fetchFavorites } from '../../store/api-actions';
-import { getFilmID, getFilmStatus } from '../../store/film-process/selectors';
+import { getFilmStatus } from '../../store/film-process/selectors';
 import { FavoriteData } from '../../types/favs-film-data';
 
+type MyListBtnProps = {
+  filmID: string;
+}
 
-function MyListBtn(): JSX.Element {
+function MyListBtn({ filmID }: MyListBtnProps): JSX.Element {
 
-  const favoriteFilmsLength = useAppSelector(selectFavoriteFilms).length;
+  const favoriteFilmsLength = useAppSelector(getFavoriteFilms).length;
   const dispatch = useAppDispatch();
-  const filmID = useAppSelector(getFilmID);
   const filmStatus = useAppSelector(getFilmStatus);
 
   const handleAddToFavorite = () => {

@@ -4,15 +4,20 @@ import FilmsListMain from '../../components/films-list-main/films-list-main';
 import GenreTabs from '../../components/genre-tabs/genre-tabs';
 import { useAppSelector } from '../../hooks/useDispatch';
 import Header from '../../components/header/header';
-import { selectPromoFilm } from '../../store/promo-film-process/selectors';
-import { selectFilms } from '../../store/films-process/selectors';
+import { getPromoFilm } from '../../store/film-process/selectors';
+import { getFilms } from '../../store/films-process/selectors';
 import MyListBtn from '../../components/my-list-btn/my-list-btn';
+import MyListBtnNoAuth from '../../components/my-list-btn-no-auth/my-list-btn-no-auth';
+import { AuthorizationStatus } from '../../const';
+import { getAuth } from '../../store/user-process/selectors';
 
 function MainPage(): JSX.Element {
   const navigate = useNavigate();
 
-  const films = useAppSelector(selectFilms);
-  const promoFilm = useAppSelector(selectPromoFilm);
+  const films = useAppSelector(getFilms);
+  const promoFilm = useAppSelector(getPromoFilm);
+  const authStatus = useAppSelector(getAuth);
+  const filmID = String(promoFilm.id);
 
   const playButtonClickHandler = () => {
     const path = `/player/${promoFilm.id}`;
@@ -50,7 +55,7 @@ function MainPage(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <MyListBtn />
+                {authStatus === AuthorizationStatus.Auth ? <MyListBtn filmID={filmID} /> : <MyListBtnNoAuth />}
               </div>
             </div>
           </div>

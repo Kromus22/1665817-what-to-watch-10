@@ -14,19 +14,21 @@ import { useEffect } from 'react';
 import AddReviewButton from '../../components/add-review-btn/add-review-btn';
 import { AuthorizationStatus } from '../../const';
 import EmptyPage from '../empty-page/empty-page';
-import { selectAuth } from '../../store/user-process/selectors';
-import { selectFilm, selectComments, selectSimilarFilms } from '../../store/film-process/selectors';
+import { getAuth } from '../../store/user-process/selectors';
+import { getFilm, getComments, getSimilarFilms } from '../../store/film-process/selectors';
 import MyListBtn from '../../components/my-list-btn/my-list-btn';
+import MyListBtnNoAuth from '../../components/my-list-btn-no-auth/my-list-btn-no-auth';
 
 
 function MoviePage(): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector(selectAuth);
-  const filmComments = useAppSelector(selectComments);
-  const film = useAppSelector(selectFilm);
-  const similarFilms = useAppSelector(selectSimilarFilms);
+  const authStatus = useAppSelector(getAuth);
+  const filmComments = useAppSelector(getComments);
+  const film = useAppSelector(getFilm);
+  const similarFilms = useAppSelector(getSimilarFilms);
+  const filmID = String(film.id);
 
   useEffect(() => {
     if (params.id) {
@@ -79,7 +81,7 @@ function MoviePage(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <MyListBtn />
+                {authStatus === AuthorizationStatus.Auth ? <MyListBtn filmID={filmID} /> : <MyListBtnNoAuth />}
                 {authStatus === AuthorizationStatus.Auth ? <AddReviewButton id={film.id} /> : null}
               </div>
             </div>

@@ -3,15 +3,15 @@ import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatch';
 import { loginAction } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { selectAuth, selectError, selectIsLoginSending } from '../../store/user-process/selectors';
+import { getAuth, getError, getIsLoginSending } from '../../store/user-process/selectors';
 import { signInValidator } from '../../utils/validator';
 import { setError } from '../../store/user-process/user-process';
 
 function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
-  const error = useAppSelector(selectError);
-  const authStatus = useAppSelector(selectAuth);
-  const isSending = useAppSelector(selectIsLoginSending);
+  const error = useAppSelector(getError);
+  const authStatus = useAppSelector(getAuth);
+  const isSending = useAppSelector(getIsLoginSending);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 

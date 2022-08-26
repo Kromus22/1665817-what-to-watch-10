@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useDispatch';
 import { DEFALUT_RATING_VALUE } from '../../const';
 import { addReviewAction } from '../../store/api-actions';
 import { useValidComment } from '../../hooks/use-valid-comm';
-import { selectCommentError, selectIsSendingComment } from '../../store/add-review-process/selectors';
+import { getCommentError, getIsSendingComment } from '../../store/add-review-process/selectors';
 import { AppRoute } from '../../const';
 
 
@@ -13,8 +13,8 @@ function SendingReviewsForm(): JSX.Element {
   const params = useParams();
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number>(DEFALUT_RATING_VALUE);
-  const isSending = useAppSelector(selectIsSendingComment);
-  const error = useAppSelector(selectCommentError);
+  const isSending = useAppSelector(getIsSendingComment);
+  const error = useAppSelector(getCommentError);
   const isValidForm = useValidComment(comment, rating);
   const navigate = useNavigate();
 

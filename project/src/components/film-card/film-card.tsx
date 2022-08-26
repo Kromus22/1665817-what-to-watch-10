@@ -5,10 +5,9 @@ import { PLAY_TIMEOUT } from '../../const';
 
 type FilmCardProps = {
   film: Film;
-  index: number;
 }
 
-function FilmCard({ film, index }: FilmCardProps): JSX.Element {
+function FilmCard({ film }: FilmCardProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 

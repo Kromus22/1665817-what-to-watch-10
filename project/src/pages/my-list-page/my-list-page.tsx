@@ -3,19 +3,18 @@ import Footer from '../../components/footer/footer';
 import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
 import FilmCard from '../../components/film-card/film-card';
 import Header from '../../components/header/header';
-import { selectFavoriteFilms } from '../../store/films-process/selectors';
+import { getFavoriteFilms } from '../../store/films-process/selectors';
 import { fetchFavorites } from '../../store/api-actions';
 
 
 function MyListPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const favoriteFilmsLength = useAppSelector(selectFavoriteFilms).length;
-  const favsFilms = useAppSelector(selectFavoriteFilms);
+  const favoriteFilmsLength = useAppSelector(getFavoriteFilms).length;
+  const favsFilms = useAppSelector(getFavoriteFilms);
   const filmsList =
-    favsFilms?.map((film, index) => (
+    favsFilms?.map((film) => (
       <FilmCard key={film.id}
         film={film}
-        index={index}
       />
     ));
 

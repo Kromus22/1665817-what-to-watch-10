@@ -10,13 +10,13 @@ import PrivateRoute from '../private-route/private-route';
 import AddReviewPage from '../../pages/add-review-page/add-review-page';
 import { useAppSelector } from '../../hooks/useDispatch';
 import LoadingPage from '../../pages/loading-page/loading-page';
-import { selectLoadingDataStatus } from '../../store/films-process/selectors';
-import { selectAuth } from '../../store/user-process/selectors';
+import { getLoadingDataStatus } from '../../store/films-process/selectors';
+import { getAuth } from '../../store/user-process/selectors';
 
 
 function App(): JSX.Element {
-  const isDataLoaded = useAppSelector(selectLoadingDataStatus);
-  const authorizationStatus = useAppSelector(selectAuth);
+  const isDataLoaded = useAppSelector(getLoadingDataStatus);
+  const authorizationStatus = useAppSelector(getAuth);
 
   if (isDataLoaded) {
     return <LoadingPage />;

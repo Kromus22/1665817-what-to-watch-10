@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
 import EmptyPage from '../empty-page/empty-page';
 import { useEffect, useRef, useState, ChangeEvent } from 'react';
 import { fetchFilm } from '../../store/api-actions';
-import { selectFilm } from '../../store/film-process/selectors';
+import { getFilm } from '../../store/film-process/selectors';
 import { PlayerProgress } from '../../const';
 import { formattingLastTime } from '../../utils/utils';
 import Spinner from '../../components/spinner/spinner';
@@ -12,7 +12,7 @@ import './player-page.css';
 
 function PlayerPage(): JSX.Element {
   const navigate = useNavigate();
-  const film = useAppSelector(selectFilm);
+  const film = useAppSelector(getFilm);
   const params = useParams();
   const dispatch = useAppDispatch();
   const videoRef = useRef<HTMLVideoElement | null>(null);

@@ -5,15 +5,15 @@ import { useAppSelector, useAppDispatch } from '../../hooks/useDispatch';
 import { useEffect } from 'react';
 import { fetchFilm } from '../../store/api-actions';
 import EmptyPage from '../empty-page/empty-page';
-import { selectFilm } from '../../store/film-process/selectors';
-import { selectAvatar } from '../../store/user-process/selectors';
+import { getFilm } from '../../store/film-process/selectors';
+import { getAvatar } from '../../store/user-process/selectors';
 
 
 function AddReviewPage(): JSX.Element {
   const params = useParams();
-  const film = useAppSelector(selectFilm);
+  const film = useAppSelector(getFilm);
   const dispatch = useAppDispatch();
-  const avatarUrl = useAppSelector(selectAvatar);
+  const avatarUrl = useAppSelector(getAvatar);
 
   useEffect(() => {
     dispatch(fetchFilm(params.id));

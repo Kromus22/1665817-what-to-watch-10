@@ -33,7 +33,6 @@ export enum APIRoute {
 
 export enum NameSpace {
   User = 'USER',
-  PromoFilm = 'PROMO_FILM',
   Films = 'FILMS',
   Film = 'FILM',
   AddReview = 'ADD_REVIEW',
