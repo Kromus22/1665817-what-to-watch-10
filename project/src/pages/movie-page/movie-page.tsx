@@ -17,7 +17,6 @@ import EmptyPage from '../empty-page/empty-page';
 import { getAuth } from '../../store/user-process/selectors';
 import { getFilm, getComments, getSimilarFilms } from '../../store/film-process/selectors';
 import MyListBtn from '../../components/my-list-btn/my-list-btn';
-import MyListBtnNoAuth from '../../components/my-list-btn-no-auth/my-list-btn-no-auth';
 
 
 function MoviePage(): JSX.Element {
@@ -38,7 +37,7 @@ function MoviePage(): JSX.Element {
     }
   }, [dispatch, params.id]);
 
-  const onPlayButtonClickHandler = () => {
+  const hanldleOnPlayButtonClick = () => {
     const path = `/player/${film.id}`;
     navigate(path);
   };
@@ -75,13 +74,13 @@ function MoviePage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button" onClick={onPlayButtonClickHandler}>
+                <button className="btn btn--play film-card__button" type="button" onClick={hanldleOnPlayButtonClick}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                {authStatus === AuthorizationStatus.Auth ? <MyListBtn filmID={filmID} /> : <MyListBtnNoAuth />}
+                <MyListBtn filmID={filmID} />
                 {authStatus === AuthorizationStatus.Auth ? <AddReviewButton id={film.id} /> : null}
               </div>
             </div>

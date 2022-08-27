@@ -10,9 +10,9 @@ import { fetchFavorites } from '../../store/api-actions';
 function MyListPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const favoriteFilmsLength = useAppSelector(getFavoriteFilms).length;
-  const favsFilms = useAppSelector(getFavoriteFilms);
+  const favoriteFilms = useAppSelector(getFavoriteFilms);
   const filmsList =
-    favsFilms?.map((film) => (
+    favoriteFilms?.map((film) => (
       <FilmCard key={film.id}
         film={film}
       />

@@ -7,19 +7,15 @@ import Header from '../../components/header/header';
 import { getPromoFilm } from '../../store/film-process/selectors';
 import { getFilms } from '../../store/films-process/selectors';
 import MyListBtn from '../../components/my-list-btn/my-list-btn';
-import MyListBtnNoAuth from '../../components/my-list-btn-no-auth/my-list-btn-no-auth';
-import { AuthorizationStatus } from '../../const';
-import { getAuth } from '../../store/user-process/selectors';
 
 function MainPage(): JSX.Element {
   const navigate = useNavigate();
 
   const films = useAppSelector(getFilms);
   const promoFilm = useAppSelector(getPromoFilm);
-  const authStatus = useAppSelector(getAuth);
   const filmID = String(promoFilm.id);
 
-  const playButtonClickHandler = () => {
+  const handlePlayButtonClick = () => {
     const path = `/player/${promoFilm.id}`;
     navigate(path);
   };
@@ -49,13 +45,13 @@ function MainPage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button" onClick={playButtonClickHandler}>
+                <button className="btn btn--play film-card__button" type="button" onClick={handlePlayButtonClick}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                {authStatus === AuthorizationStatus.Auth ? <MyListBtn filmID={filmID} /> : <MyListBtnNoAuth />}
+                <MyListBtn filmID={filmID} />
               </div>
             </div>
           </div>

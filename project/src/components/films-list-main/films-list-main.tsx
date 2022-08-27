@@ -14,7 +14,7 @@ function FilmsListMain({ films }: { films: Film[] }): JSX.Element {
   const renderedFilmCount = useAppSelector(getRenderedFilmCount);
   const sortedFilms = films.filter((film) => selectedGenre === 'All genres' ? films : film.genre === selectedGenre);
 
-  const onShowMoreBtnClick = () => {
+  const handleOnShowMoreBtnClick = () => {
     dispatch(showMore(renderedFilmCount + CARDS_PER_STEP));
   };
 
@@ -34,7 +34,7 @@ function FilmsListMain({ films }: { films: Film[] }): JSX.Element {
       </div>
       {
         isShowBtn &&
-        <ShowMoreButton onClick={onShowMoreBtnClick} />
+        <ShowMoreButton onClick={handleOnShowMoreBtnClick} />
       }
     </>
   );
