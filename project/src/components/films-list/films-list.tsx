@@ -7,7 +7,7 @@ type FilmListProps = {
 
 function FilmsList({ films }: FilmListProps): JSX.Element {
   const filmsList =
-    films.map((film, index) => (
+    films.map((film) => (
       <FilmCard key={film.id} film={film} />
     ));
 
